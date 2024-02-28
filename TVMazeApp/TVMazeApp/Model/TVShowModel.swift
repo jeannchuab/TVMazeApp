@@ -15,17 +15,17 @@ struct TVShowModel: Codable, Identifiable {
     let language: String
     let genres: [String]
     let status: String
-    let runtime: Int
+    let runtime: Int?
     let averageRuntime: Int
     let premiered: String
-    let ended: String
+    let ended: String?
     let officialSite: String?
     let schedule: ScheduleModel
     let rating: RatingModel
     let weight: Int
-    let network: NetworkModel
-    let webChannel: String?
-    let dvdCountry: String?
+    let network: NetworkModel?
+    let webChannel: WebChannelModel?
+    let dvdCountry: CountryModel?
     let externals: ExternalsModel
     let image: ImageModel
     let summary: String
@@ -44,7 +44,7 @@ struct ScheduleModel: Codable {
 }
 
 struct RatingModel: Codable {
-    let average: Double
+    let average: Double?
 }
 
 struct NetworkModel: Codable {
@@ -64,10 +64,17 @@ struct CountryModel: Codable {
     let timezone: String
 }
 
+struct WebChannelModel: Codable {
+    let id: Int
+    let name: String
+    let country: CountryModel?
+    let officialSite: String?
+}
+
 struct ExternalsModel: Codable {
     let tvrage: Int
-    let thetvdb: Int
-    let imdb: String
+    let thetvdb: Int?
+    let imdb: String?
 }
 
 struct ImageModel: Codable {
@@ -104,7 +111,7 @@ struct SampleTVShowModel {
     static let previousEpisode = PreviousEpisodeModel(href: "https://example.com/episodes/456")
     static let links = LinksModel(selfLink: selfLink, previousepisode: previousEpisode)
 
-    static let mockTVShow1 = TVShowModel(
+    static let TVShow1 = TVShowModel(
         id: 1,
         url: "https://www.example.com/shows/123",
         name: "UP Adventures",
@@ -121,8 +128,8 @@ struct SampleTVShowModel {
         rating: rating,
         weight: 80,
         network: network,
-        webChannel: "Example Channel",
-        dvdCountry: "US",
+        webChannel: nil,
+        dvdCountry: nil,
         externals: externals,
         image: image,
         summary: "The Rookie is inspired by a true story. John Nolan is the oldest rookie in the LAPD. At an age where most are at the peak of their career, Nolan cast aside his comfortable, small town life and moved to L.A. to pursue his dream of being a cop. Now, surrounded by rookies twenty years his junior, Nolan must navigate the dangerous, humorous and unpredictable world of a 'young' cop, determined to make his second shot at life count.",
@@ -130,7 +137,7 @@ struct SampleTVShowModel {
         links: links
     )
     
-    static let mockTVShow2 = TVShowModel(
+    static let TVShow2 = TVShowModel(
         id: 2,
         url: "https://www.example.com/shows/123",
         name: "Star Wars: The Empire strikes back",
@@ -147,8 +154,8 @@ struct SampleTVShowModel {
         rating: rating,
         weight: 80,
         network: network,
-        webChannel: "Example Channel",
-        dvdCountry: "US",
+        webChannel: nil,
+        dvdCountry: nil,
         externals: externals,
         image: image,
         summary: "<p>This is a mock TV show summary.</p>",
@@ -156,7 +163,7 @@ struct SampleTVShowModel {
         links: links
     )
     
-    static let mockTVShow3 = TVShowModel(
+    static let TVShow3 = TVShowModel(
         id: 3,
         url: "https://www.example.com/shows/123",
         name: "Indiana Jones: Episode 1",
@@ -173,8 +180,8 @@ struct SampleTVShowModel {
         rating: rating,
         weight: 80,
         network: network,
-        webChannel: "Example Channel",
-        dvdCountry: "US",
+        webChannel: nil,
+        dvdCountry: nil,
         externals: externals,
         image: image,
         summary: "<p>This is a mock TV show summary.</p>",
@@ -182,5 +189,5 @@ struct SampleTVShowModel {
         links: links
     )
     
-    static let list = [mockTVShow1, mockTVShow2, mockTVShow3]
+    static let list = [TVShow1, TVShow2, TVShow3]
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TVShowDetailView: View {
     
-    var tvShowModel = SampleTVShowModel.mockTVShow1
+    var tvShowModel = SampleTVShowModel.TVShow1
     var isNight = false
     
     var body: some View {
@@ -18,23 +18,24 @@ struct TVShowDetailView: View {
             
             ScrollView {
                 VStack {
-                                
-                    //default image "movieclapper"
-                    
-                    Image("SampleImage")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 400)
-                        .cornerRadius(12)
-                    
+                    ZStack {
+                        LoadingView()
+                        
+                        CustomRemoteImage(urlString: tvShowModel.image.original)
+                            .scaledToFit()
+                            .frame(height: 400)
+                            .cornerRadius(12)
+                    }
+                                                            
                     Text(tvShowModel.name)
                         .font(.title2)
-                        .padding(.bottom, 8)
+                        .fontWeight(.bold)
+                        .padding(.bottom, 4)
                         .multilineTextAlignment(.center)
                         .padding([.trailing, .leading])
                         .scaledToFit()
                     
-                    Text("Genre1, genre2, genre3")
+                    Text(tvShowModel.genres.joined(separator: ", "))
                         .font(.subheadline)
                         .padding([.trailing, .leading, .bottom])
                     
@@ -44,16 +45,18 @@ struct TVShowDetailView: View {
                         .foregroundColor(.accentColor)
                     
                     HStack(alignment: .firstTextBaseline) {
-                        Text("Premiered at \(tvShowModel.premiered), \(tvShowModel.schedule.time)h")
+                        Text("Premiered at \(tvShowModel.premiered.formattedDate()), \(tvShowModel.schedule.time)h")
                             .font(.subheadline)
                             .multilineTextAlignment(.leading)
                             .padding([.trailing, .leading, .bottom])
                         
                         Spacer()
                     }
-                    
-                    Text(tvShowModel.summary)
-                        .padding([.trailing, .leading, .bottom])
+                                                            
+                    VStack(alignment: .leading) {
+                        Text(tvShowModel.summary.removeHtmlTags())
+                            .padding([.trailing, .leading, .bottom])
+                    }
                     
                     Button {
                         print("Seasons and Episodes")
@@ -61,6 +64,8 @@ struct TVShowDetailView: View {
                         Text("Seasons and Episodes")
                     }
                     .padding()
+                    
+                    
                 }
             }
         }

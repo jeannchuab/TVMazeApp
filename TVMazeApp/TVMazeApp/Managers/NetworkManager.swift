@@ -12,8 +12,8 @@ final class NetworkManager {
     static let shared = NetworkManager()
     private let cache = NSCache<NSString, UIImage>()
     
-    static let baseUrl = "https://seanallen-course-backend.herokuapp.com/swiftui-fundamentals/"
-    private let tvShowUrl = baseUrl + "appetizers"
+    static let baseUrl = "https://api.tvmaze.com/"
+    private let tvShowUrl = baseUrl + "shows?page=1"
     
     private init() {
 
@@ -56,9 +56,14 @@ final class NetworkManager {
         task.resume()
     }
     
-    func getTVShowsAsync() async throws -> [TVShowModel] {
+    func getTVShowsAsync(page: Int = 0) async throws -> [TVShowModel] {
+                        
+        var components = URLComponents(string: tvShowUrl)
+        components?.queryItems = [
+            URLQueryItem(name: "page", value: String(page))
+        ]
         
-        guard let url = URL(string: tvShowUrl) else {
+        guard let url = components?.url else {
             throw CustomError.invalidUrl
         }
     
@@ -72,7 +77,8 @@ final class NetworkManager {
             let decoder = JSONDecoder()
             let decodedResponse = try decoder.decode([TVShowModel].self, from: data)
             return decodedResponse
-        } catch {
+        } catch let error {
+            print(error)
             throw CustomError.invalidData
         }
     }
