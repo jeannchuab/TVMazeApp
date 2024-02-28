@@ -125,7 +125,7 @@ struct SampleTVShowModel {
         dvdCountry: "US",
         externals: externals,
         image: image,
-        summary: "<p>This is a mock TV show summary.</p>",
+        summary: "The Rookie is inspired by a true story. John Nolan is the oldest rookie in the LAPD. At an age where most are at the peak of their career, Nolan cast aside his comfortable, small town life and moved to L.A. to pursue his dream of being a cop. Now, surrounded by rookies twenty years his junior, Nolan must navigate the dangerous, humorous and unpredictable world of a 'young' cop, determined to make his second shot at life count.",
         updated: 1234567890,
         links: links
     )
