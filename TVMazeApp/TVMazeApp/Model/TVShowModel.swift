@@ -36,6 +36,19 @@ struct TVShowModel: Codable, Identifiable {
         case id, url, name, type, language, genres, status, runtime, averageRuntime, premiered, ended, officialSite, schedule, rating, weight, network, webChannel, dvdCountry, externals, image, summary, updated
         case links = "_links"
     }
+    
+    var premieredFormatted: String {
+        
+        var result = ""
+        
+        guard let premiered = self.premiered else { return "" }
+        result = "Premiered at \(premiered.formattedDate())"
+        
+        guard let schedule = self.schedule else { return result }
+        result = result + ", \(schedule.time)h"
+        
+        return result
+    }
 }
 
 struct ScheduleModel: Codable {

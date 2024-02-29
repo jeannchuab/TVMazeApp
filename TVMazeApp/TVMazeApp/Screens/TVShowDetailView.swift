@@ -10,7 +10,7 @@ import SwiftUI
 struct TVShowDetailView: View {
     
     var tvShowModel = SampleTVShowModel.TVShow1
-    var isNight = false
+    @State var isShowingSeasonsEpisodes = false
     
     var body: some View {
         ZStack {            
@@ -18,9 +18,7 @@ struct TVShowDetailView: View {
             
             ScrollView {
                 VStack {
-                    ZStack {
-//                        LoadingView()
-                                                
+                    ZStack {                                                
                         CustomRemoteImage(urlString: tvShowModel.image?.original ?? "")
                             .scaledToFit()
                             .frame(height: 400)
@@ -43,13 +41,10 @@ struct TVShowDetailView: View {
                         .foregroundColor(.accentColor)
                     
                     HStack(alignment: .firstTextBaseline) {
-                        
-                        //TODO: Move to viewModel
-                        
-//                        Text("Premiered at \(tvShowModel.premiered?.formattedDate()), \(tvShowModel.schedule?.time)h")
-//                            .font(.subheadline)
-//                            .multilineTextAlignment(.leading)
-//                            .padding([.trailing, .leading, .bottom])
+                        Text(tvShowModel.premieredFormatted)
+                            .font(.subheadline)
+                            .multilineTextAlignment(.leading)
+                            .padding([.trailing, .leading, .bottom])
                         
                         Spacer()
                     }
@@ -59,14 +54,17 @@ struct TVShowDetailView: View {
                             .padding([.trailing, .leading, .bottom])
                     }
                     
-                    Button {
-                        print("Seasons and Episodes")
-                    } label: {
+                    NavigationLink(destination: EmptyView()) {
                         Text("Seasons and Episodes")
+                            .padding()
                     }
-                    .padding()
                     
                     
+                    
+                    
+//                    NavigationLink(destination: Text("Destination_2"), tag: 1, selection: $isShowingSeasonsEpisodes) {
+//                        EmptyView()
+//                    }
                 }
             }
         }

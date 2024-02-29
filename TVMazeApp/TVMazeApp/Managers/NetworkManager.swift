@@ -8,9 +8,32 @@
 import Foundation
 import UIKit
 
-enum Endpoint: String {
-    case tvShow = "shows"
-    case searchTvShow = "search/shows"
+enum Paths: String {
+    case shows
+    case search
+    case seasons
+    case episodes
+}
+
+enum Endpoint {
+    case tvShow(_ idTVShow: Int? = nil)
+    case searchTvShow
+    case seasons(_ idTVShow: Int)
+    
+    var path: String {
+        switch self {
+        case .tvShow(let id):
+            
+            guard let id else { return Paths.shows.rawValue }
+            return Paths.shows.rawValue + "/" + String(id)
+            
+        case .searchTvShow:
+            return Paths.search.rawValue + "/" + Paths.shows.rawValue
+            
+        case .seasons(let idTVShow):
+            return Paths.shows.rawValue + "/" + String(idTVShow) + "/" + Paths.seasons.rawValue
+        }
+    }
 }
 
 final class NetworkManager {
@@ -66,12 +89,12 @@ final class NetworkManager {
 //        return []
 //    }
     
-    static func buildUrl(endpoint: Endpoint) -> String {
-        return baseUrl + endpoint.rawValue
+    static func buildUrl(path: String) -> String {
+        return baseUrl + path
     }
     
     static func getAllShows(page: Int = 0) async throws -> [TVShowModel] {
-        var components = URLComponents(string: buildUrl(endpoint: .tvShow))
+        var components = URLComponents(string: buildUrl(path: Endpoint.tvShow().path))
         components?.queryItems = []
         
         if page > 0 {
@@ -99,7 +122,7 @@ final class NetworkManager {
     }
     
     static func searchTVShow(searchQuery: String) async throws -> [TVShowModel] {
-        var components = URLComponents(string: buildUrl(endpoint: .searchTvShow))
+        var components = URLComponents(string: buildUrl(path: Endpoint.searchTvShow.path))
         components?.queryItems = []
                 
         if !searchQuery.isEmpty {
@@ -126,6 +149,33 @@ final class NetworkManager {
             throw CustomError.invalidData
         }
     }
+    
+    static func getSeasons(idTvShow: Int) async throws -> [TVShowModel] {
+        var components = URLComponents(string: buildUrl(path: Endpoint.seasons(idTvShow).path))
+        components?.queryItems = []
+        
+        guard let url = components?.url else {
+            throw CustomError.invalidUrl
+        }
+    
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw CustomError.invalidResponse
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            let decodedResponse = try decoder.decode([SearchResponse].self, from: data)
+            let result = decodedResponse.map({ $0.show })
+            return result
+        } catch let error {
+            print(error)
+            throw CustomError.invalidData
+        }
+    }
+    
+//https://api.tvmaze.com/shows/1/seasons
     
 //    func downloadImage(fromURLString urlString: String, completion: @escaping (UIImage?) -> Void) {
 //        
