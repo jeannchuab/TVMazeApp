@@ -43,5 +43,5 @@ struct TVShowCellView: View {
 }
 
 #Preview {
-    TVShowCellView(tvShowModel: SampleTVShowModel.TVShow1)
+    TVShowCellView(tvShowModel: SampleData.tvShow1)
 }

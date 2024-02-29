@@ -16,7 +16,7 @@ struct SeasonModel: Codable, Identifiable {
     let premiereDate: String?
     let endDate: String?
     let network: NetworkModel?
-    let webChannel: String?
+    let webChannel: WebChannelModel?
     let image: ImageModel?
     let summary: String?
     let links: LinksModel?
@@ -24,5 +24,20 @@ struct SeasonModel: Codable, Identifiable {
     private enum CodingKeys: String, CodingKey {
         case id, url, number, name, episodeOrder, premiereDate, endDate, network, webChannel, image, summary
         case links = "_links"
+    }
+    
+    var premieredFormatted: String {
+        guard let premiered = self.premiereDate else { return "" }
+        return premiered.formattedDate()
+    }
+        
+    var title: String {
+        var result = "Season \(number)"
+        
+        if !premieredFormatted.isEmpty {
+            result = result.isEmpty ? premieredFormatted : "\(result) - \(premieredFormatted)"
+        }
+        
+        return result
     }
 }

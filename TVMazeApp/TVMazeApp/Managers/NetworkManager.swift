@@ -19,6 +19,7 @@ enum Endpoint {
     case tvShow(_ idTVShow: Int? = nil)
     case searchTvShow
     case seasons(_ idTVShow: Int)
+    case episodes(_ idSeason: Int)
     
     var path: String {
         switch self {
@@ -32,6 +33,9 @@ enum Endpoint {
             
         case .seasons(let idTVShow):
             return Paths.shows.rawValue + "/" + String(idTVShow) + "/" + Paths.seasons.rawValue
+            
+        case .episodes(let idSeason):
+            return Paths.seasons.rawValue + "/" + String(idSeason) + "/" + Paths.episodes.rawValue
         }
     }
 }
@@ -41,8 +45,8 @@ final class NetworkManager {
     private let cache = NSCache<NSString, UIImage>()
     
     static let baseUrl = "https://api.tvmaze.com/"
-    private let tvShow = baseUrl + "shows"
-    private let searchTvShow = baseUrl + "search/shows"
+//    private let tvShow = baseUrl + "shows"
+//    private let searchTvShow = baseUrl + "search/shows"
     
     private init() {
 
@@ -174,8 +178,30 @@ final class NetworkManager {
         }
     }
     
-//https://api.tvmaze.com/shows/1/seasons
+    static func getEpisodes(idSeason: Int) async throws -> [EpisodeModel] {
+        var components = URLComponents(string: buildUrl(path: Endpoint.episodes(idSeason).path))
+        components?.queryItems = []
+        
+        guard let url = components?.url else {
+            throw CustomError.invalidUrl
+        }
     
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw CustomError.invalidResponse
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            let decodedResponse = try decoder.decode([EpisodeModel].self, from: data)
+            return decodedResponse
+        } catch let error {
+            print(error)
+            throw CustomError.invalidData
+        }
+    }
+        
 //    func downloadImage(fromURLString urlString: String, completion: @escaping (UIImage?) -> Void) {
 //        
 //        let cacheKey = NSString(string: urlString)

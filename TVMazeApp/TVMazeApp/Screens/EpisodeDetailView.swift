@@ -1,46 +1,51 @@
 //
-//  TVShowDetailView.swift
+//  EpisodeDetailView.swift
 //  TVMazeApp
 //
-//  Created by Jeann Luiz on 28/02/24.
+//  Created by Jeann Luiz on 29/02/24.
 //
 
 import SwiftUI
 
-struct TVShowDetailView: View {
+struct EpisodeDetailView: View {
     var tvShowModel = SampleData.tvShow1
-    @State var isShowingSeasonsEpisodes = false
-    
-    var body: some View {        
+    var episodeModel = SampleData.episode1
+        
+    var body: some View {
         ZStack {
             BackgroundView()
             
             ScrollView {
                 VStack {
-                    ZStack {                                                
-                        CustomRemoteImage(urlString: tvShowModel.image?.original ?? "")
+                    ZStack {
+                        CustomRemoteImage(urlString: episodeModel.image?.original ?? "")
                             .scaledToFit()
                             .frame(height: 400)
                             .cornerRadius(12)
                     }
-                                                            
-                    Text(tvShowModel.name)
+                    
+                    Text(episodeModel.seasonEpisodeTitleFormatted)
                         .font(.title2)
                         .fontWeight(.bold)
                         .padding(.bottom, 4)
                         .multilineTextAlignment(.center)
                         .padding([.trailing, .leading])
                         .scaledToFit()
-                    
-                    Text(tvShowModel.genres.joined(separator: ", "))
-                        .font(.subheadline)
-                        .padding([.trailing, .leading, .bottom])
-                                        
+                                                            
+                    Text("\(episodeModel.name)")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding(.bottom, 4)
+                        .multilineTextAlignment(.center)
+                        .padding([.trailing, .leading])
+                        .lineLimit(2, reservesSpace: false)
+                        .scaledToFit()
+                                                            
                     Divider()
                         .foregroundColor(.accentColor)
                     
                     HStack(alignment: .firstTextBaseline) {
-                        Text(tvShowModel.premieredFormatted)
+                        Text(episodeModel.airDateTimeFormatted)
                             .font(.subheadline)
                             .multilineTextAlignment(.leading)
                             .padding([.trailing, .leading, .bottom])
@@ -49,14 +54,8 @@ struct TVShowDetailView: View {
                     }
                                                             
                     VStack(alignment: .leading) {
-                        Text(tvShowModel.summary?.removeHtmlTags() ?? "")
+                        Text(episodeModel.summary?.removeHtmlTags() ?? "")
                             .padding([.trailing, .leading, .bottom])
-                    }
-                    
-                    NavigationLink(destination: SeasonsListView(tvShowModel: tvShowModel)) {
-                        Text("Seasons and Episodes")
-                            .fontWeight(.semibold)
-                            .padding()
                     }
                 }
             }
@@ -67,5 +66,5 @@ struct TVShowDetailView: View {
 }
 
 #Preview {
-    TVShowDetailView()
+    EpisodeDetailView()
 }
