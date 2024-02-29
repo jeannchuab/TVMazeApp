@@ -15,9 +15,10 @@ struct TVShowCellView: View {
         NavigationLink(destination: TVShowDetailView(tvShowModel: tvShowModel)) {
             
             VStack {
+                
+                Spacer()
+                
                 ZStack {
-//                    LoadingView()
-                    
                     CustomRemoteImage(urlString: tvShowModel.image?.medium ?? "")
                         .scaledToFit()
                         .aspectRatio(contentMode: .fit)

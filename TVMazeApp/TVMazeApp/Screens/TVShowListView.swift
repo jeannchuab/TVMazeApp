@@ -29,10 +29,8 @@ struct TVShowListView: View {
                     }
                     .searchable(text: $viewModel.searchText, prompt: "Type your search here")                                           
                     .onSubmit(of: .search) {
+                        print(".onSubmit(of: .search)")
                         viewModel.getTVShows(searchQuery: viewModel.searchText)
-                    }
-                    .onSubmit {
-                        print("Submit")
                     }
                     .navigationBarTitle("🎬 TV Maze")
                 }
@@ -43,6 +41,7 @@ struct TVShowListView: View {
                 }
             }
             .onAppear() {
+                print(".onAppear")
                 viewModel.getTVShows(searchQuery: viewModel.searchText)
             }
         }

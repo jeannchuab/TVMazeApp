@@ -12,9 +12,7 @@ final class ImageLoader: ObservableObject {
     @Published var image: Image? = nil
     
     func load(fromURLString urlString: String) {
-        
-        self.image = Image("movieclapper").resizable()
-                        
+                                
         Task {
             let uiImage = try await NetworkManager.shared.downloadImageAsync(fromURLString: urlString)
             self.image = Image(uiImage: uiImage)
@@ -25,7 +23,7 @@ final class ImageLoader: ObservableObject {
 struct RemoteImage: View {
     var image: Image?
     var body: some View {                        
-        image?.resizable() ?? Image(systemName: "movieclapper").resizable()
+        image?.resizable() ?? Image("")
     }
 }
 
@@ -36,7 +34,11 @@ struct CustomRemoteImage: View {
     var body: some View {
         
         if urlString.isEmpty {
-            Image(systemName: "movieclapper").resizable()
+            Image("movieclapper")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 80, height: 238)
+                .tint(.accentColor)
         } else {
             ZStack {
                 LoadingView()
