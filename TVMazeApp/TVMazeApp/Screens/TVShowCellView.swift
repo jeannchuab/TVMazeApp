@@ -16,9 +16,9 @@ struct TVShowCellView: View {
             
             VStack {
                 ZStack {
-                    LoadingView()
+//                    LoadingView()
                     
-                    CustomRemoteImage(urlString: tvShowModel.image.medium)
+                    CustomRemoteImage(urlString: tvShowModel.image?.medium ?? "")
                         .scaledToFit()
                         .aspectRatio(contentMode: .fit)
                         .cornerRadius(12)

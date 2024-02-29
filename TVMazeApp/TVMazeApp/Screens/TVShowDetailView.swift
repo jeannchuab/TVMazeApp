@@ -19,9 +19,9 @@ struct TVShowDetailView: View {
             ScrollView {
                 VStack {
                     ZStack {
-                        LoadingView()
-                        
-                        CustomRemoteImage(urlString: tvShowModel.image.original)
+//                        LoadingView()
+                                                
+                        CustomRemoteImage(urlString: tvShowModel.image?.original ?? "")
                             .scaledToFit()
                             .frame(height: 400)
                             .cornerRadius(12)
@@ -38,23 +38,24 @@ struct TVShowDetailView: View {
                     Text(tvShowModel.genres.joined(separator: ", "))
                         .font(.subheadline)
                         .padding([.trailing, .leading, .bottom])
-                    
-                    //TODO: Format date
-                    
+                                        
                     Divider()
                         .foregroundColor(.accentColor)
                     
                     HStack(alignment: .firstTextBaseline) {
-                        Text("Premiered at \(tvShowModel.premiered.formattedDate()), \(tvShowModel.schedule.time)h")
-                            .font(.subheadline)
-                            .multilineTextAlignment(.leading)
-                            .padding([.trailing, .leading, .bottom])
+                        
+                        //TODO: Move to viewModel
+                        
+//                        Text("Premiered at \(tvShowModel.premiered?.formattedDate()), \(tvShowModel.schedule?.time)h")
+//                            .font(.subheadline)
+//                            .multilineTextAlignment(.leading)
+//                            .padding([.trailing, .leading, .bottom])
                         
                         Spacer()
                     }
                                                             
                     VStack(alignment: .leading) {
-                        Text(tvShowModel.summary.removeHtmlTags())
+                        Text(tvShowModel.summary?.removeHtmlTags() ?? "")
                             .padding([.trailing, .leading, .bottom])
                     }
                     

@@ -11,26 +11,26 @@ struct TVShowModel: Codable, Identifiable {
     let id: Int
     let url: String
     let name: String
-    let type: String
-    let language: String
+    let type: String?
+    let language: String?
     let genres: [String]
-    let status: String
+    let status: String?
     let runtime: Int?
-    let averageRuntime: Int
-    let premiered: String
+    let averageRuntime: Int?
+    let premiered: String?
     let ended: String?
     let officialSite: String?
-    let schedule: ScheduleModel
-    let rating: RatingModel
-    let weight: Int
+    let schedule: ScheduleModel?
+    let rating: RatingModel?
+    let weight: Int?
     let network: NetworkModel?
     let webChannel: WebChannelModel?
     let dvdCountry: CountryModel?
-    let externals: ExternalsModel
-    let image: ImageModel
-    let summary: String
-    let updated: Int
-    let links: LinksModel
+    let externals: ExternalsModel?
+    let image: ImageModel?
+    let summary: String?
+    let updated: Int?
+    let links: LinksModel?
 
     private enum CodingKeys: String, CodingKey {
         case id, url, name, type, language, genres, status, runtime, averageRuntime, premiered, ended, officialSite, schedule, rating, weight, network, webChannel, dvdCountry, externals, image, summary, updated
@@ -72,7 +72,7 @@ struct WebChannelModel: Codable {
 }
 
 struct ExternalsModel: Codable {
-    let tvrage: Int
+    let tvrage: Int?
     let thetvdb: Int?
     let imdb: String?
 }
@@ -83,8 +83,8 @@ struct ImageModel: Codable {
 }
 
 struct LinksModel: Codable {
-    let selfLink: SelfLinkModel
-    let previousepisode: PreviousEpisodeModel
+    let selfLink: SelfLinkModel?
+    let previousepisode: PreviousEpisodeModel?
 
     private enum CodingKeys: String, CodingKey {
         case selfLink = "self"
@@ -98,6 +98,11 @@ struct SelfLinkModel: Codable {
 
 struct PreviousEpisodeModel: Codable {
     let href: String
+}
+
+struct SearchResponse: Codable {
+    let score: Double
+    let show: TVShowModel
 }
 
 struct SampleTVShowModel {

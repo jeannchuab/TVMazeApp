@@ -118,13 +118,13 @@
 		0F3E9EAC2B8F8E650053EE62 /* TVMazeApp */ = {
 			isa = PBXGroup;
 			children = (
-				0F3E9EFB2B8FE1C30053EE62 /* Extensions */,
+				0F3E9EAD2B8F8E650053EE62 /* TVMazeAppApp.swift */,
 				0F3E9EB12B8F8E670053EE62 /* Assets.xcassets */,
+				0F3E9EFB2B8FE1C30053EE62 /* Extensions */,
 				0F3E9EE32B8FB3C50053EE62 /* Managers */,
 				0F3E9ED72B8F90E40053EE62 /* Model */,
 				0F3E9EB32B8F8E670053EE62 /* Preview Content */,
 				0F3E9EDC2B8F9C550053EE62 /* Screens */,
-				0F3E9EAD2B8F8E650053EE62 /* TVMazeAppApp.swift */,
 				0F3E9EE62B8FB4310053EE62 /* Utilities */,
 				0F3E9EDF2B8FA7150053EE62 /* Views */,
 			);

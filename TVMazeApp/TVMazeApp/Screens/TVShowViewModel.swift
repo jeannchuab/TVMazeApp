@@ -12,51 +12,27 @@ final class TVShowViewModel: ObservableObject {
     @Published var tvShowsModel: [TVShowModel] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading: Bool = false
+    @Published var searchText = "" {
+        didSet {            
+            if searchText.isEmpty && (oldValue != searchText) {
+                getTVShows()
+            }
+        }
+    }
     
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible())]
-//    @Published var isShowingDetail = false
     
-//    func getAppetizers() {
-//        
-//        isLoading = true
-//        
-//        NetworkManager.shared.getAppetizers { [weak self] result in
-//            DispatchQueue.main.async {
-//                
-//                self?.isLoading = false
-//                
-//                switch result {
-//                case .success(let appetizers):
-//                    self?.appetizers = appetizers
-//                    
-//                case .failure(let error):
-//                    switch error {
-//                    case .invalidUrl:
-//                        self?.alertItem = AlertContext.invalidUrl
-//                        
-//                    case .invalidResponse:
-//                        self?.alertItem = AlertContext.invalidResponse
-//                        
-//                    case .invalidData:
-//                        self?.alertItem = AlertContext.invalidData
-//                        
-//                    case .unableToComplete:
-//                        self?.alertItem = AlertContext.unableToComplete
-//                    }
-//                }
-//            }
-//        }
-//    }
-    
-    func getTVShows() {
-        
+    func getTVShows(searchQuery: String = "") {
         isLoading = true
-        
+                        
         Task {
             do {
-                tvShowsModel = try await NetworkManager.shared.getTVShowsAsync()
-                isLoading = false
+                if searchQuery.isEmpty {
+                    tvShowsModel = try await NetworkManager.getAllShows()
+                } else {
+                    tvShowsModel = try await NetworkManager.searchTVShow(searchQuery: searchQuery)
+                }                
             } catch CustomError.invalidUrl {
                 alertItem = AlertContext.invalidUrl
             } catch CustomError.invalidResponse {
@@ -68,7 +44,8 @@ final class TVShowViewModel: ObservableObject {
             } catch {
                 alertItem = AlertContext.unableToComplete
             }
+            
+            isLoading = false
         }
     }
 }
-

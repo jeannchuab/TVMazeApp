@@ -10,6 +10,7 @@ import SwiftUI
 struct TVShowListView: View {
     
     @StateObject var viewModel = TVShowViewModel()
+    @Environment(\.isSearching) var isSearching
     
     var body: some View {
         NavigationView {
@@ -17,10 +18,21 @@ struct TVShowListView: View {
                 BackgroundView()
                 
                 ScrollView {
+                    
+                    //TODO: Implement pagination
+                                                            
                     LazyVGrid(columns: viewModel.columns) {
+                                                                        
                         ForEach(viewModel.tvShowsModel) { tvShowModel in
                             TVShowCellView(tvShowModel: tvShowModel)
                         }
+                    }
+                    .searchable(text: $viewModel.searchText, prompt: "Type your search here")                                           
+                    .onSubmit(of: .search) {
+                        viewModel.getTVShows(searchQuery: viewModel.searchText)
+                    }
+                    .onSubmit {
+                        print("Submit")
                     }
                     .navigationBarTitle("🎬 TV Maze")
                 }
@@ -30,14 +42,20 @@ struct TVShowListView: View {
                     LoadingView()
                 }
             }
-            .task {
-                viewModel.getTVShows()
+            .onAppear() {
+                viewModel.getTVShows(searchQuery: viewModel.searchText)
             }
         }
         .alert(item: $viewModel.alertItem) { alertItem in
             Alert(title: alertItem.title,
                   message: alertItem.message,
                   dismissButton: alertItem.dismissButton)
+        }
+    }
+    
+    func runSearch() {
+        Task {
+            viewModel.getTVShows(searchQuery: viewModel.searchText)
         }
     }
 }
