@@ -10,6 +10,7 @@ import SwiftUI
 @MainActor
 final class TVShowViewModel: ObservableObject {
     @Published var tvShowsModel: [TVShowModel] = []
+    @Published var seasonsModel: [SeasonModel] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading: Bool = false
     @Published var searchText = "" {
@@ -33,6 +34,28 @@ final class TVShowViewModel: ObservableObject {
                 } else {
                     tvShowsModel = try await NetworkManager.searchTVShow(searchQuery: searchQuery)
                 }                
+            } catch CustomError.invalidUrl {
+                alertItem = AlertContext.invalidUrl
+            } catch CustomError.invalidResponse {
+                alertItem = AlertContext.invalidResponse
+            } catch CustomError.invalidData {
+                alertItem = AlertContext.invalidData
+            } catch CustomError.unableToComplete {
+                alertItem = AlertContext.unableToComplete
+            } catch {
+                alertItem = AlertContext.unableToComplete
+            }
+            
+            isLoading = false
+        }
+    }
+    
+    func getSeasons(idTVShow: Int) {
+        isLoading = true
+                        
+        Task {
+            do {
+                seasonsModel = try await NetworkManager.getSeasons(idTvShow: idTVShow)
             } catch CustomError.invalidUrl {
                 alertItem = AlertContext.invalidUrl
             } catch CustomError.invalidResponse {

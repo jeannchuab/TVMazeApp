@@ -27,6 +27,7 @@
 		0F3E9EF32B8FCE860053EE62 /* RemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3E9EF22B8FCE850053EE62 /* RemoteImage.swift */; };
 		0F3E9EFD2B8FE1D60053EE62 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F3E9EFC2B8FE1D60053EE62 /* String+Extensions.swift */; };
 		0FD53C272B90BB4000BC21F9 /* SeasonsEpisodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD53C262B90BB4000BC21F9 /* SeasonsEpisodesView.swift */; };
+		0FD53C292B90CD6700BC21F9 /* SeasonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FD53C282B90CD6700BC21F9 /* SeasonModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		0F3E9EF22B8FCE850053EE62 /* RemoteImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteImage.swift; sourceTree = "<group>"; };
 		0F3E9EFC2B8FE1D60053EE62 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		0FD53C262B90BB4000BC21F9 /* SeasonsEpisodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsEpisodesView.swift; sourceTree = "<group>"; };
+		0FD53C282B90CD6700BC21F9 /* SeasonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			children = (
 				0F3E9ED82B8F911A0053EE62 /* TVShowModel.swift */,
 				0F3E9EDA2B8F92D20053EE62 /* MockData.swift */,
+				0FD53C282B90CD6700BC21F9 /* SeasonModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 				0F3E9EFD2B8FE1D60053EE62 /* String+Extensions.swift in Sources */,
 				0F3E9EDE2B8F9C910053EE62 /* TVShowDetailView.swift in Sources */,
 				0F3E9EE52B8FB3F40053EE62 /* NetworkManager.swift in Sources */,
+				0FD53C292B90CD6700BC21F9 /* SeasonModel.swift in Sources */,
 				0F3E9EF32B8FCE860053EE62 /* RemoteImage.swift in Sources */,
 				0FD53C272B90BB4000BC21F9 /* SeasonsEpisodesView.swift in Sources */,
 				0F3E9EF12B8FC5DC0053EE62 /* LoadingView.swift in Sources */,

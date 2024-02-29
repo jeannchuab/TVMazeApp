@@ -8,13 +8,23 @@
 import SwiftUI
 
 struct SeasonsEpisodesView: View {
+    
+    var tvShowModel = SampleTVShowModel.TVShow1
+    @EnvironmentObject var viewModel: TVShowViewModel
+    
     var body: some View {
         ZStack {
             BackgroundView()
             
-            ScrollView {
-                
+            List(viewModel.seasonsModel) { season in
+                Text("Season \(season.number)")
             }
+            .listStyle(.plain)
+            .padding()
+            .navigationTitle("Seasons")
+        }
+        .task {
+            viewModel.getSeasons(idTVShow: tvShowModel.id)
         }
     }
 }

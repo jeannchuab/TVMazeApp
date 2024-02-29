@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct TVShowListView: View {
-    
     @StateObject var viewModel = TVShowViewModel()
-    @Environment(\.isSearching) var isSearching
     
     var body: some View {
         NavigationView {
@@ -30,9 +28,9 @@ struct TVShowListView: View {
                     .searchable(text: $viewModel.searchText, prompt: "Type your search here")                                           
                     .onSubmit(of: .search) {
                         print(".onSubmit(of: .search)")
-                        viewModel.getTVShows(searchQuery: viewModel.searchText)
+                        runSearch()
                     }
-                    .navigationBarTitle("🎬 TV Maze")
+                    .navigationTitle("🎬 TV Maze")
                 }
                 .padding()
                 
@@ -41,8 +39,7 @@ struct TVShowListView: View {
                 }
             }
             .onAppear() {
-                print(".onAppear")
-                viewModel.getTVShows(searchQuery: viewModel.searchText)
+                runSearch()
             }
         }
         .alert(item: $viewModel.alertItem) { alertItem in
@@ -50,6 +47,7 @@ struct TVShowListView: View {
                   message: alertItem.message,
                   dismissButton: alertItem.dismissButton)
         }
+        .environmentObject(viewModel)
     }
     
     func runSearch() {

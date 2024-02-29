@@ -150,7 +150,7 @@ final class NetworkManager {
         }
     }
     
-    static func getSeasons(idTvShow: Int) async throws -> [TVShowModel] {
+    static func getSeasons(idTvShow: Int) async throws -> [SeasonModel] {
         var components = URLComponents(string: buildUrl(path: Endpoint.seasons(idTvShow).path))
         components?.queryItems = []
         
@@ -166,9 +166,8 @@ final class NetworkManager {
         
         do {
             let decoder = JSONDecoder()
-            let decodedResponse = try decoder.decode([SearchResponse].self, from: data)
-            let result = decodedResponse.map({ $0.show })
-            return result
+            let decodedResponse = try decoder.decode([SeasonModel].self, from: data)
+            return decodedResponse
         } catch let error {
             print(error)
             throw CustomError.invalidData

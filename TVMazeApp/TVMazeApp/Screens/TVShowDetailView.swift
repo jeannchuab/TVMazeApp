@@ -12,8 +12,8 @@ struct TVShowDetailView: View {
     var tvShowModel = SampleTVShowModel.TVShow1
     @State var isShowingSeasonsEpisodes = false
     
-    var body: some View {
-        ZStack {            
+    var body: some View {        
+        ZStack {
             BackgroundView()
             
             ScrollView {
@@ -54,7 +54,7 @@ struct TVShowDetailView: View {
                             .padding([.trailing, .leading, .bottom])
                     }
                     
-                    NavigationLink(destination: EmptyView()) {
+                    NavigationLink(destination: SeasonsEpisodesView(tvShowModel: tvShowModel)) {
                         Text("Seasons and Episodes")
                             .padding()
                     }
@@ -67,6 +67,8 @@ struct TVShowDetailView: View {
 //                    }
                 }
             }
+            .navigationTitle(tvShowModel.name)
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
