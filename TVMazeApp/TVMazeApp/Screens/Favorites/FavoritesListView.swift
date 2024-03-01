@@ -1,14 +1,14 @@
 //
-//  ContentView.swift
+//  FavoritesListView.swift
 //  TVMazeApp
 //
-//  Created by Jeann Luiz on 28/02/24.
+//  Created by Jeann Luiz on 29/02/24.
 //
 
 import SwiftUI
 
-struct TVShowListView: View {
-    @StateObject var viewModel = TVShowViewModel()
+struct FavoritesListView: View {
+    @EnvironmentObject var viewModel: FavoriteViewModel
     
     var body: some View {
         NavigationView {
@@ -21,16 +21,18 @@ struct TVShowListView: View {
                                                             
                     LazyVGrid(columns: viewModel.columns) {
                                                                         
-                        ForEach(viewModel.tvShowsModel) { tvShowModel in
+                        ForEach(viewModel.favoritesTvShows) { tvShowModel in
                             TVShowCellView(tvShowModel: tvShowModel)
                         }
                     }
-                    .searchable(text: $viewModel.searchText, prompt: "Type your search here")                                           
+                    .searchable(text: $viewModel.searchText, prompt: "Type your search here")
                     .onSubmit(of: .search) {
                         print(".onSubmit(of: .search)")
                         runSearch()
                     }
-                    .navigationTitle("🎬 TV Maze")
+                    .navigationTitle("⭐️ Favorites")
+//                    .navigationBarTitleDisplayMode(.inline)
+                    
                 }
                 .padding()
                 
@@ -52,11 +54,11 @@ struct TVShowListView: View {
     
     func runSearch() {
         Task {
-            viewModel.getTVShows(searchQuery: viewModel.searchText)
+            viewModel.getFavorites(searchQuery: viewModel.searchText)
         }
     }
 }
 
 #Preview {
-    TVShowListView()
+    FavoritesListView()
 }

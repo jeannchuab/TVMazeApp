@@ -9,7 +9,9 @@ import SwiftUI
 
 struct TVShowDetailView: View {
     var tvShowModel = SampleData.tvShow1
-    @State var isShowingSeasonsEpisodes = false
+    @EnvironmentObject var viewModel: TVShowViewModel
+    @EnvironmentObject var favoriteViewModel: FavoriteViewModel
+    @State var isFavorite = false
     
     var body: some View {        
         ZStack {
@@ -60,7 +62,22 @@ struct TVShowDetailView: View {
                     }
                 }
             }
+            .onAppear {
+                isFavorite = favoriteViewModel.isFavorite(tvShowModel)
+            }
             .navigationTitle(tvShowModel.name)
+            .navigationBarItems(trailing:
+                Button {
+                    withAnimation(.default) {
+                        isFavorite = favoriteViewModel.isFavoriteToggle(tvShowModel)
+                    }
+                } label: {
+                    Image(isFavorite ? "star.fill" : "star")
+                        .foregroundColor(Color.accentColor)
+                        .imageScale(.large)
+                        .frame(width: 44, height: 44)
+                }
+            )
             .navigationBarTitleDisplayMode(.inline)
         }
     }

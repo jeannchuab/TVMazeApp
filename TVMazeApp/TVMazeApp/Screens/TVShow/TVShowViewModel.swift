@@ -14,6 +14,7 @@ final class TVShowViewModel: ObservableObject {
     @Published var episodesModel: [EpisodeModel] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading: Bool = false
+    
     @Published var searchText = "" {
         didSet {            
             if searchText.isEmpty && (oldValue != searchText) {
