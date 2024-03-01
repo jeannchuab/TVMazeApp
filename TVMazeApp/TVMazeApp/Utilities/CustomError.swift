@@ -12,4 +12,6 @@ enum CustomError: Error {
     case invalidResponse
     case invalidData
     case unableToComplete
+    case unknownError
+    case invalidFavorite
 }

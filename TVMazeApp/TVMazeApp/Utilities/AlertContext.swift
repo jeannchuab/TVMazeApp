@@ -11,31 +11,50 @@ struct AlertItem: Identifiable {
     var id = UUID()
     let title: Text
     let message: Text
-    let dismissButton: Alert.Button
+    let dismissButton: Alert.Button = .default(Text("OK"))
+    
+    init(error: CustomError) {
+        
+        switch error {
+        case .invalidUrl:
+            title = Text("Invalid URL")
+            message = Text("There was a issue connecting to the server. Please try again in a few moments.")
+            
+        case .invalidResponse:
+            title = Text("Server error")
+            message = Text("Invalid response from server. Please try again in a few moments.")
+            
+        case .invalidData:
+            title = Text("Server error")
+            message = Text("The data received from the server was invalid. Please try again in a few moments.")
+            
+        case .unableToComplete:
+            title = Text("Server error")
+            message = Text("Unable to complete you request at this time. Please check your internet connection.")
+            
+        case .unknownError:
+            title = Text("Unknown error")
+            message = Text("An unknown occurred. Please try again in a few moments.")
+            
+        case .invalidFavorite:
+            title = Text("Server error")
+            message = Text("There was an error saving or retrieving the favorite data.")
+        }
+    }
 }
 
-struct AlertContext {
-    
-    //MARK: Network Alerts
-    
-    static let invalidUrl = AlertItem(title: Text("Server error"),
-                                       message: Text("There was a issue connecting to the server. Please try again later or contact support."),
-                                       dismissButton: .default(Text("OK")))
-    
-    static let invalidResponse = AlertItem(title: Text("Server error"),
-                                       message: Text("Invalid response from server. Please try again later or contact support."),
-                                       dismissButton: .default(Text("OK")))
-    
-    static let invalidData = AlertItem(title: Text("Server error"),
-                                       message: Text("The data received from the server was invalid. Please try again later or contact support."),
-                                       dismissButton: .default(Text("OK")))
-    
-    static let unableToComplete = AlertItem(title: Text("Server error"),
-                                       message: Text("Unable to complete you request at this time. Please check your internet connection."),
-                                       dismissButton: .default(Text("OK")))
-    //MARK: Interface
-    
-    static let invalidFavorite = AlertItem(title: Text("Saving error"),
-                                        message: Text("There was an error saving or retrieving the favorite data."),
-                                        dismissButton: .default(Text("OK")))
-}
+//struct AlertContext {
+//
+//    //MARK: Network Alerts
+//
+//
+//
+//    static let unableToComplete = AlertItem(title: Text("Server error"),
+//                                            message: ,
+//                                            dismissButton: .default(Text("OK")))
+//    //MARK: Interface
+//
+//    static let invalidFavorite = AlertItem(title: Text("Saving error"),
+//                                           message: ,
+//                                           dismissButton: .default(Text("OK")))
+//}

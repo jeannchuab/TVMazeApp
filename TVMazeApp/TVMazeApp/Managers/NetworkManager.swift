@@ -16,20 +16,22 @@ enum Paths: String {
 }
 
 enum Endpoint {
-    case tvShow(_ idTVShow: Int? = nil)
-    case searchTvShow
+//    case tvShowById(_ idTVShow: Int)
+    case tvShowBySearch
+    case tvShowAll
     case seasons(_ idTVShow: Int)
     case episodes(_ idSeason: Int)
     
     var path: String {
         switch self {
-        case .tvShow(let id):
+//        case .tvShowById(let id):
+//            return Paths.shows.rawValue + "/" + String(id)
             
-            guard let id else { return Paths.shows.rawValue }
-            return Paths.shows.rawValue + "/" + String(id)
-            
-        case .searchTvShow:
+        case .tvShowBySearch:
             return Paths.search.rawValue + "/" + Paths.shows.rawValue
+            
+        case .tvShowAll:
+            return Paths.shows.rawValue
             
         case .seasons(let idTVShow):
             return Paths.shows.rawValue + "/" + String(idTVShow) + "/" + Paths.seasons.rawValue
@@ -45,47 +47,45 @@ final class NetworkManager {
     private let cache = NSCache<NSString, UIImage>()
     
     static let baseUrl = "https://api.tvmaze.com/"
-//    private let tvShow = baseUrl + "shows"
-//    private let searchTvShow = baseUrl + "search/shows"
     
     private init() {
 
     }
     
 //    func getTVShows(completed: @escaping (Result<[TVShowModel], CustomError>) -> Void) {
-//        
+//
 //        guard let url = URL(string: tvShowUrl) else {
 //            completed(.failure(.invalidUrl))
 //            return
 //        }
-//        
+//
 //        let task = URLSession.shared.dataTask(with: URLRequest(url: url), completionHandler: { data, response, error in
-//            
+//
 //            if error != nil {
 //                completed(.failure(.unableToComplete))
 //                return
 //            }
-//            
+//
 //            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
 //                completed(.failure(.invalidResponse))
 //                return
 //            }
-//            
+//
 //            guard let data else {
 //                completed(.failure(.invalidData))
 //                return
 //            }
-//            
+//
 //            do {
 //                let decoder = JSONDecoder()
 //                let decodedResponse = try decoder.decode([TVShowModel].self, from: data)
 //                completed(.success(decodedResponse))
-//                
+//
 //            } catch {
 //                completed(.failure(.invalidData))
 //            }
 //        })
-//        
+//
 //        task.resume()
 //    }
     
@@ -98,7 +98,7 @@ final class NetworkManager {
     }
     
     static func getAllShows(page: Int = 0) async throws -> [TVShowModel] {
-        var components = URLComponents(string: buildUrl(path: Endpoint.tvShow().path))
+        var components = URLComponents(string: buildUrl(path: Endpoint.tvShowAll.path))
         components?.queryItems = []
         
         if page > 0 {
@@ -126,7 +126,7 @@ final class NetworkManager {
     }
     
     static func searchTVShow(searchQuery: String) async throws -> [TVShowModel] {
-        var components = URLComponents(string: buildUrl(path: Endpoint.searchTvShow.path))
+        var components = URLComponents(string: buildUrl(path: Endpoint.tvShowBySearch.path))
         components?.queryItems = []
                 
         if !searchQuery.isEmpty {
@@ -203,31 +203,31 @@ final class NetworkManager {
     }
         
 //    func downloadImage(fromURLString urlString: String, completion: @escaping (UIImage?) -> Void) {
-//        
+//
 //        let cacheKey = NSString(string: urlString)
-//        
+//
 //        if let image = cache.object(forKey: cacheKey) {
 //            completion(image)
 //            return
 //        }
-//        
+//
 //        guard let url = URL(string: urlString) else {
 //            completion(nil)
 //            return
 //        }
-//        
+//
 //        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-//            
+//
 //            guard let data, let image = UIImage(data: data) else {
 //                completion(nil)
 //                return
 //            }
-//            
+//
 //            self.cache.setObject(image, forKey: cacheKey)
-//            
+//
 //            completion(image)
 //        }
-//        
+//
 //        task.resume()
 //    }
     
@@ -245,7 +245,7 @@ final class NetworkManager {
         
         let (data, response) = try await URLSession.shared.data(for: URLRequest(url: url))
         
-        guard let response = response as? HTTPURLResponse, 
+        guard let response = response as? HTTPURLResponse,
                 response.statusCode == 200,
                 let image = UIImage(data: data)
         else {

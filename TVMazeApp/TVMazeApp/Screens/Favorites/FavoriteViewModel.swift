@@ -39,7 +39,7 @@ final class FavoriteViewModel: ObservableObject {
         do {
             favoritesData = try JSONEncoder().encode(favoritesTvShows)
         } catch {
-            alertItem = AlertContext.invalidFavorite
+            alertItem = AlertItem(error: .invalidFavorite)
         }
     }
         
@@ -48,7 +48,7 @@ final class FavoriteViewModel: ObservableObject {
         do {
             favoritesData = try JSONEncoder().encode(favoritesTvShows)
         } catch {
-            alertItem = AlertContext.invalidFavorite
+            alertItem = AlertItem(error: .invalidFavorite)
         }
     }
     
@@ -79,7 +79,7 @@ final class FavoriteViewModel: ObservableObject {
                 favoritesTvShows = result.filter({ $0.name.contains(searchQuery) })
             }                        
         } catch {
-            alertItem = AlertContext.invalidFavorite
+            alertItem = AlertItem(error: .invalidFavorite)
         }
     }
 }

@@ -16,7 +16,7 @@ final class TVShowViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     
     @Published var searchText = "" {
-        didSet {            
+        didSet {
             if searchText.isEmpty && (oldValue != searchText) {
                 getTVShows()
             }
@@ -26,76 +26,80 @@ final class TVShowViewModel: ObservableObject {
     let columns: [GridItem] = [GridItem(.flexible()),
                                GridItem(.flexible())]
     
-    func getTVShows(searchQuery: String = "") {
-        tvShowsModel = []
+    var currentPage = 0
+    
+//    func loadNextPage() {
+//        currentPage += 1
+//
+//        isLoading = true
+//
+//        Task {
+//            do {
+//                let result = try await NetworkManager.getAllShows(page: currentPage)
+//                tvShowsModel.append(contentsOf: result)
+//            } catch let error {
+//                if error is CustomError {
+//                    guard let customError = error as? CustomError else { return }
+//                    alertItem = AlertItem(error: customError)
+//                } else {
+//                    alertItem = AlertItem(error: .invalidData)
+//                }
+//            }
+//
+//            isLoading = false
+//        }
+//    }
+        
+    private func get(endpoint: Endpoint, searchQuery: String = "") {
         isLoading = true
-                        
+        
         Task {
             do {
-                if searchQuery.isEmpty {
-                    tvShowsModel = try await NetworkManager.getAllShows()
-                } else {
+                switch endpoint {
+                case .tvShowBySearch:
+                    
+                    tvShowsModel = []
                     tvShowsModel = try await NetworkManager.searchTVShow(searchQuery: searchQuery)
-                }                
-            } catch CustomError.invalidUrl {
-                alertItem = AlertContext.invalidUrl
-            } catch CustomError.invalidResponse {
-                alertItem = AlertContext.invalidResponse
-            } catch CustomError.invalidData {
-                alertItem = AlertContext.invalidData
-            } catch CustomError.unableToComplete {
-                alertItem = AlertContext.unableToComplete
-            } catch {
-                alertItem = AlertContext.unableToComplete
+                    
+                case .tvShowAll:
+                    tvShowsModel = []
+                    tvShowsModel = try await NetworkManager.getAllShows()
+                    
+                case .seasons(let idTvShow):
+                    seasonsModel = []
+                    seasonsModel = try await NetworkManager.getSeasons(idTvShow: idTvShow)
+                    
+                case .episodes(let idSeason):
+                    episodesModel = []
+                    episodesModel = try await NetworkManager.getEpisodes(idSeason: idSeason)
+                }
+                
+            } catch let error {
+                if error is CustomError {
+                    guard let customError = error as? CustomError else { return }
+                    alertItem = AlertItem(error: customError)
+                } else {
+                    alertItem = AlertItem(error: .invalidData)
+                }
             }
-            
             isLoading = false
+        }
+    }
+
+    
+    func getTVShows(searchQuery: String = "") {
+        if searchQuery.isEmpty {
+            get(endpoint: .tvShowAll)
+        } else {
+            get(endpoint: .tvShowBySearch, searchQuery: searchQuery)
         }
     }
     
     func getSeasons(idTVShow: Int) {
-        isLoading = true
-        seasonsModel = []
-                        
-        Task {
-            do {
-                seasonsModel = try await NetworkManager.getSeasons(idTvShow: idTVShow)
-            } catch CustomError.invalidUrl {
-                alertItem = AlertContext.invalidUrl
-            } catch CustomError.invalidResponse {
-                alertItem = AlertContext.invalidResponse
-            } catch CustomError.invalidData {
-                alertItem = AlertContext.invalidData
-            } catch CustomError.unableToComplete {
-                alertItem = AlertContext.unableToComplete
-            } catch {
-                alertItem = AlertContext.unableToComplete
-            }
-            
-            isLoading = false
-        }
+        get(endpoint: .seasons(idTVShow))
     }
     
     func getEpisodes(idSeason: Int) {
-        isLoading = true
-        episodesModel = []
-        
-        Task {
-            do {
-                episodesModel = try await NetworkManager.getEpisodes(idSeason: idSeason)
-            } catch CustomError.invalidUrl {
-                alertItem = AlertContext.invalidUrl
-            } catch CustomError.invalidResponse {
-                alertItem = AlertContext.invalidResponse
-            } catch CustomError.invalidData {
-                alertItem = AlertContext.invalidData
-            } catch CustomError.unableToComplete {
-                alertItem = AlertContext.unableToComplete
-            } catch {
-                alertItem = AlertContext.unableToComplete
-            }
-            
-            isLoading = false
-        }
+        get(endpoint: .episodes(idSeason))
     }
 }

@@ -10,9 +10,11 @@ import SwiftUI
 struct TVShowCellView: View {
     
     var tvShowModel: TVShowModel
+    @EnvironmentObject var favoriteViewModel: FavoriteViewModel
     
     var body: some View {
-        NavigationLink(destination: TVShowDetailView(tvShowModel: tvShowModel)) {
+        NavigationLink(destination: TVShowDetailView(tvShowModel: tvShowModel,
+                                                     isFavorite: favoriteViewModel.isFavorite(tvShowModel))) {
             
             VStack {
                 

@@ -11,7 +11,7 @@ struct TVShowDetailView: View {
     var tvShowModel = SampleData.tvShow1
     @EnvironmentObject var viewModel: TVShowViewModel
     @EnvironmentObject var favoriteViewModel: FavoriteViewModel
-    @State var isFavorite = false
+    @State var isFavorite: Bool
     
     var body: some View {        
         ZStack {
@@ -62,9 +62,9 @@ struct TVShowDetailView: View {
                     }
                 }
             }
-            .onAppear {
-                isFavorite = favoriteViewModel.isFavorite(tvShowModel)
-            }
+//            .onAppear {
+//                isFavorite = favoriteViewModel.isFavorite(tvShowModel)
+//            }
             .navigationTitle(tvShowModel.name)
             .navigationBarItems(trailing:
                 Button {
@@ -84,5 +84,5 @@ struct TVShowDetailView: View {
 }
 
 #Preview {
-    TVShowDetailView()
+    TVShowDetailView(isFavorite: true)
 }
