@@ -14,8 +14,7 @@ struct TVShowCellView: View {
     
     var body: some View {
         NavigationLink(destination: TVShowDetailView(tvShowModel: tvShowModel,
-                                                     isFavorite: favoriteViewModel.isFavorite(tvShowModel))) {
-            
+                                                     isFavorite: favoriteViewModel.isFavorite(tvShowModel))) {            
             VStack {
                 
                 Spacer()
@@ -45,5 +44,5 @@ struct TVShowCellView: View {
 }
 
 #Preview {
-    TVShowCellView(tvShowModel: SampleData.tvShow1)
+    TVShowCellView(tvShowModel: MockData.tvShow1)
 }

@@ -30,7 +30,7 @@ struct RemoteImage: View {
 struct CustomRemoteImage: View {
     @StateObject var imageLoader = ImageLoader()
     
-    let urlString: String
+    var urlString: String = ""
     var body: some View {
         
         if urlString.isEmpty {

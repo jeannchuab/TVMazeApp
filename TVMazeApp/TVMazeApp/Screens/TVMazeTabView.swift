@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct TVMazeTabView: View {            
-    
+struct TVMazeTabView: View {                
+    @StateObject var tvShowViewModel = TVShowViewModel()
     @StateObject var favoritesViewModel = FavoriteViewModel()
-    @StateObject var personViewModel = PersonViewModel()
+    @StateObject var personViewModel = PersonListViewModel()
     
     var body: some View {
         TabView {
@@ -24,13 +24,14 @@ struct TVMazeTabView: View {
                     Label("Favorites", systemImage: "star")
                 }
             
-            PeopleListView()
+            PersonListView()
                 .tabItem {
                     Label("People search", systemImage: "person")
                 }
         }
         .environmentObject(favoritesViewModel)
         .environmentObject(personViewModel)
+        .environmentObject(tvShowViewModel)
     }
 }
 

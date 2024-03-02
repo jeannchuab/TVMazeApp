@@ -83,8 +83,8 @@ final class TVShowViewModel: ObservableObject {
                     episodesModel = []
                     episodesModel = try await NetworkManager.getEpisodes(idSeason: idSeason)
                     
-                case .personAll, .personBySearch: break
-                    
+                default:
+                    alertItem = AlertItem(error: .endpointNotFound)                    
                 }
                 
             } catch let error {

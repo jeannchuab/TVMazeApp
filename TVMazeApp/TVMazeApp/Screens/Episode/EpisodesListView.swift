@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct EpisodesListView: View {
-    var tvShowModel = SampleData.tvShow1
-    var seasonModel = SampleData.season1
+    var tvShowModel = MockData.tvShow1
+    var seasonModel = MockData.season1
     @EnvironmentObject var viewModel: TVShowViewModel
     
     var body: some View {
@@ -57,8 +57,10 @@ struct EpisodesListView: View {
                 LoadingView()
             }
         }
-        .task {
-            viewModel.getEpisodes(idSeason: seasonModel.id)
+        .onAppear {
+            if viewModel.episodesModel.isEmpty {
+                viewModel.getEpisodes(idSeason: seasonModel.id)
+            }
         }
     }
 }

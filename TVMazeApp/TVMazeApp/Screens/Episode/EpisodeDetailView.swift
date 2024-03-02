@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct EpisodeDetailView: View {
-    var tvShowModel = SampleData.tvShow1
-    var episodeModel = SampleData.episode1
+    var tvShowModel = MockData.tvShow1
+    var episodeModel = MockData.episode1
         
     var body: some View {
         ZStack {

@@ -39,22 +39,10 @@ struct AlertItem: Identifiable {
         case .invalidFavorite:
             title = Text("Server error")
             message = Text("There was an error saving or retrieving the favorite data.")
+            
+        case .endpointNotFound:
+            title = Text("Local error")
+            message = Text("The specified endpoint was not found.")
         }
     }
 }
-
-//struct AlertContext {
-//
-//    //MARK: Network Alerts
-//
-//
-//
-//    static let unableToComplete = AlertItem(title: Text("Server error"),
-//                                            message: ,
-//                                            dismissButton: .default(Text("OK")))
-//    //MARK: Interface
-//
-//    static let invalidFavorite = AlertItem(title: Text("Saving error"),
-//                                           message: ,
-//                                           dismissButton: .default(Text("OK")))
-//}

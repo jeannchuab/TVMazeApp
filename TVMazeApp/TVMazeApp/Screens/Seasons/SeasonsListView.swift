@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SeasonsListView: View {
     
-    var tvShowModel = SampleData.tvShow1
+    var tvShowModel = MockData.tvShow1
     @EnvironmentObject var viewModel: TVShowViewModel
     
     var body: some View {
@@ -22,16 +22,7 @@ struct SeasonsListView: View {
                     Divider()
                     
                     ForEach(viewModel.seasonsModel) { season in
-                        NavigationLink(destination: EpisodesListView(tvShowModel: tvShowModel, seasonModel: season)) {
-  
-                            //TODO: Improvement
-//                            CustomRemoteImage(urlString: season.image?.original ?? "")
-//                                .scaledToFit()
-//                                .aspectRatio(contentMode: .fit)
-//                                .cornerRadius(12)
-//                                .frame(width: 80, height: 80)
-//                                .padding()
-                            
+                        NavigationLink(destination: EpisodesListView(tvShowModel: tvShowModel, seasonModel: season)) {                              
                             Text(season.title)
                                 .fontWeight(.semibold)
                                 .padding()
@@ -49,8 +40,10 @@ struct SeasonsListView: View {
                 LoadingView()
             }
         }
-        .task {            
-            viewModel.getSeasons(idTVShow: tvShowModel.id)
+        .onAppear {
+            if viewModel.seasonsModel.isEmpty {
+                viewModel.getSeasons(idTVShow: tvShowModel.id)
+            }
         }
     }
 }

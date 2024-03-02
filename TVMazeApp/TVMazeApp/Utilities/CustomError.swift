@@ -14,4 +14,5 @@ enum CustomError: Error {
     case unableToComplete
     case unknownError
     case invalidFavorite
+    case endpointNotFound
 }

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TVShowDetailView: View {
-    var tvShowModel = SampleData.tvShow1
+    var tvShowModel = MockData.tvShow1
     @EnvironmentObject var viewModel: TVShowViewModel
     @EnvironmentObject var favoriteViewModel: FavoriteViewModel
     @State var isFavorite: Bool
@@ -62,9 +62,6 @@ struct TVShowDetailView: View {
                     }
                 }
             }
-//            .onAppear {
-//                isFavorite = favoriteViewModel.isFavorite(tvShowModel)
-//            }
             .navigationTitle(tvShowModel.name)
             .navigationBarItems(trailing:
                 Button {

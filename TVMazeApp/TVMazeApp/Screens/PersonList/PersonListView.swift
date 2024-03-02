@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct PeopleListView: View {
-    @EnvironmentObject var viewModel: PersonViewModel
+struct PersonListView: View {
+    @EnvironmentObject var viewModel: PersonListViewModel
     
     var body: some View {
         NavigationView {
@@ -19,9 +19,9 @@ struct PeopleListView: View {
                     
                     //TODO: Implement pagination
                                                             
-                    LazyVGrid(columns: viewModel.columns) {
+                    LazyVGrid(columns: viewModel.columns, spacing: 16) {
                                                                         
-                        ForEach(viewModel.personModel) { person in
+                        ForEach(viewModel.personList) { person in
                             PersonCellView(personModel: person)
                         }
                     }
@@ -53,11 +53,11 @@ struct PeopleListView: View {
     
     func runSearch() {
         Task {
-            viewModel.getPerson(searchQuery: viewModel.searchText)
+            viewModel.getPersonBySearch(searchQuery: viewModel.searchText)
         }
     }
 }
 
 #Preview {
-    PeopleListView()
+    PersonListView()
 }

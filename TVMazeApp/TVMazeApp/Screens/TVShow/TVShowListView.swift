@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TVShowListView: View {
-    @StateObject var viewModel = TVShowViewModel()    
+    @EnvironmentObject var viewModel: TVShowViewModel    
     
     var body: some View {
         NavigationView {
