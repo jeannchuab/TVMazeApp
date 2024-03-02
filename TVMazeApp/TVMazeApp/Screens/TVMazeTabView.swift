@@ -10,16 +10,12 @@ import SwiftUI
 struct TVMazeTabView: View {            
     
     @StateObject var favoritesViewModel = FavoriteViewModel()
+    @StateObject var personViewModel = PersonViewModel()
     
     var body: some View {
         TabView {
             TVShowListView()
                 .tabItem {
-                    //We can use a Text and Image
-                    //Image(systemName: "house")
-                    //Text("Home")
-                    
-                    //Or a label
                     Label("Home", systemImage: "house")
                 }
             
@@ -28,12 +24,13 @@ struct TVMazeTabView: View {
                     Label("Favorites", systemImage: "star")
                 }
             
-            PeopleSearchView()
+            PeopleListView()
                 .tabItem {
                     Label("People search", systemImage: "person")
                 }
         }
         .environmentObject(favoritesViewModel)
+        .environmentObject(personViewModel)
     }
 }
 

@@ -13,14 +13,18 @@ enum Paths: String {
     case search
     case seasons
     case episodes
+    case people
+    case person
 }
 
-enum Endpoint {
+enum Endpoint: Equatable {
 //    case tvShowById(_ idTVShow: Int)
     case tvShowBySearch
     case tvShowAll
     case seasons(_ idTVShow: Int)
     case episodes(_ idSeason: Int)
+    case personAll
+    case personBySearch
     
     var path: String {
         switch self {
@@ -38,6 +42,13 @@ enum Endpoint {
             
         case .episodes(let idSeason):
             return Paths.seasons.rawValue + "/" + String(idSeason) + "/" + Paths.episodes.rawValue
+            
+        case .personBySearch:
+            return Paths.search.rawValue + "/" + Paths.people.rawValue
+        
+        case .personAll:
+            return Paths.people.rawValue
+        
         }
     }
 }
@@ -196,6 +207,63 @@ final class NetworkManager {
             let decoder = JSONDecoder()
             let decodedResponse = try decoder.decode([EpisodeModel].self, from: data)
             return decodedResponse
+        } catch let error {
+            print(error)
+            throw CustomError.invalidData
+        }
+    }
+    
+    static func getAllPerson(page: Int = 0) async throws -> [PersonModel] {
+        var components = URLComponents(string: buildUrl(path: Endpoint.personAll.path))
+        components?.queryItems = []
+        
+        if page > 0 {
+            components?.queryItems?.append(contentsOf: [URLQueryItem(name: "page", value: String(page))])
+        }
+        
+        guard let url = components?.url else {
+            throw CustomError.invalidUrl
+        }
+    
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw CustomError.invalidResponse
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            let decodedResponse = try decoder.decode([PersonModel].self, from: data)
+            return decodedResponse
+        } catch let error {
+            print(error)
+            throw CustomError.invalidData
+        }
+    }
+    
+    static func searchPerson(searchQuery: String) async throws -> [PersonModel] {
+        var components = URLComponents(string: buildUrl(path: Endpoint.personBySearch.path))
+        components?.queryItems = []
+                
+        if !searchQuery.isEmpty {
+            components?.queryItems?.append(contentsOf: [URLQueryItem(name: "q", value: searchQuery)])
+        }
+        
+        guard let url = components?.url else {
+            throw CustomError.invalidUrl
+        }
+    
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+            throw CustomError.invalidResponse
+        }
+        
+        do {
+            let decoder = JSONDecoder()
+            let decodedResponse = try decoder.decode([PersonSearchResponse].self, from: data)
+            let result = decodedResponse.map({ $0.person })
+            return result
         } catch let error {
             print(error)
             throw CustomError.invalidData

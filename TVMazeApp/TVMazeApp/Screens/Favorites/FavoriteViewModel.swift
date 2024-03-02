@@ -16,6 +16,8 @@ final class FavoriteViewModel: ObservableObject {
     @AppStorage("favorites") private var favoritesData: Data?
     
     @Published private(set) var favoritesTvShows: [TVShowModel] = []
+    @Published private(set) var favoritesTvShowsSearched: [TVShowModel] = []
+    
     @Published var alertItem: AlertItem?
     @Published var isLoading: Bool = false
     
@@ -72,12 +74,13 @@ final class FavoriteViewModel: ObservableObject {
             guard let favoritesData else { return }
             
             let result = try JSONDecoder().decode([TVShowModel].self, from: favoritesData)
+            favoritesTvShows = result.sorted(by: { $0.name < $1.name })
             
             if searchQuery.isEmpty {
-                favoritesTvShows = result.sorted(by: { $0.name < $1.name })
+                favoritesTvShowsSearched = result.sorted(by: { $0.name < $1.name })
             } else {
-                favoritesTvShows = result.filter({ $0.name.contains(searchQuery) }).sorted(by: { $0.name < $1.name })
-            }                        
+                favoritesTvShowsSearched = result.filter({ $0.name.contains(searchQuery) }).sorted(by: { $0.name < $1.name })
+            }
         } catch {
             alertItem = AlertItem(error: .invalidFavorite)
         }

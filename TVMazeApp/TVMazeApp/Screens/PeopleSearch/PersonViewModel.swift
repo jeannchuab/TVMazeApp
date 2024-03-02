@@ -1,35 +1,23 @@
 //
-//  TVShowViewModel.swift
+//  PersonSearchViewModel.swift
 //  TVMazeApp
 //
-//  Created by Jeann Luiz on 28/02/24.
+//  Created by Jeann Luiz on 02/03/24.
 //
 
 import SwiftUI
 
-/*TODO
-  Pagination
-  Allow pin/password
-  Allow FaceId
-  Order Favorites alphabetically
-  Create people search
-  Show people details
-  Unit tests
-  Change from GRID to List
-*/
-
 @MainActor
-final class TVShowViewModel: ObservableObject {
-    @Published var tvShowsModel: [TVShowModel] = []
-    @Published var seasonsModel: [SeasonModel] = []
-    @Published var episodesModel: [EpisodeModel] = []
+final class PersonViewModel: ObservableObject {
+    @Published var personModel: [PersonModel] = []
+
     @Published var alertItem: AlertItem?
     @Published var isLoading: Bool = false
     
     @Published var searchText = "" {
         didSet {
             if searchText.isEmpty && (oldValue != searchText) {
-                getTVShows()
+                getPerson()
             }
         }
     }
@@ -66,27 +54,12 @@ final class TVShowViewModel: ObservableObject {
         
         Task {
             do {
-                switch endpoint {
-                case .tvShowBySearch:                    
-                    tvShowsModel = []
-                    tvShowsModel = try await NetworkManager.searchTVShow(searchQuery: searchQuery)
-                    
-                case .tvShowAll:
-                    tvShowsModel = []
-                    tvShowsModel = try await NetworkManager.getAllShows()
-                    
-                case .seasons(let idTvShow):
-                    seasonsModel = []
-                    seasonsModel = try await NetworkManager.getSeasons(idTvShow: idTvShow)
-                    
-                case .episodes(let idSeason):
-                    episodesModel = []
-                    episodesModel = try await NetworkManager.getEpisodes(idSeason: idSeason)
-                    
-                case .personAll, .personBySearch: break
-                    
+                personModel = []
+                if endpoint == .personBySearch {
+                    personModel = try await NetworkManager.searchPerson(searchQuery: searchQuery)
+                } else if endpoint == .personAll {
+                    personModel = try await NetworkManager.getAllPerson()
                 }
-                
             } catch let error {
                 if error is CustomError {
                     guard let customError = error as? CustomError else { return }
@@ -99,19 +72,11 @@ final class TVShowViewModel: ObservableObject {
         }
     }
     
-    func getTVShows(searchQuery: String = "") {
+    func getPerson(searchQuery: String = "") {
         if searchQuery.isEmpty {
-            get(endpoint: .tvShowAll)
+            get(endpoint: .personAll)
         } else {
-            get(endpoint: .tvShowBySearch, searchQuery: searchQuery)
+            get(endpoint: .personBySearch, searchQuery: searchQuery)
         }
-    }
-    
-    func getSeasons(idTVShow: Int) {
-        get(endpoint: .seasons(idTVShow))
-    }
-    
-    func getEpisodes(idSeason: Int) {
-        get(endpoint: .episodes(idSeason))
     }
 }

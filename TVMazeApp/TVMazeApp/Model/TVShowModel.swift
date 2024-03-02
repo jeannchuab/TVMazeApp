@@ -377,4 +377,72 @@ struct SampleData {
     )
 
     static let episodes = [episode1, episode2, episode3]
+    
+    static let person1 = PersonModel(
+        id: 5308,
+        url: "https://www.tvmaze.com/people/5308/val-lauren",
+        name: "Val Lauren",
+        country: CountryModel(
+            name: "United States",
+            code: "US",
+            timezone: "America/New_York"
+        ),
+        birthday: nil,
+        deathday: nil,
+        gender: "Male",
+        image: ImageModel(
+            medium: "https://static.tvmaze.com/uploads/images/medium_portrait/191/479296.jpg",
+            original: "https://static.tvmaze.com/uploads/images/original_untouched/191/479296.jpg"
+        ),
+        updated: 1685777646,
+        links: PersonLinksModel(
+            selfLink: SelfLinkModel(href: "https://api.tvmaze.com/people/5308")
+        )
+    )
+
+    static let person2 = PersonModel(
+        id: 5309,
+        url: "https://www.tvmaze.com/people/5309/jane-doe",
+        name: "Jane Doe",
+        country: CountryModel(
+            name: "United States",
+            code: "US",
+            timezone: "America/New_York"
+        ),
+        birthday: "1990-01-01",
+        deathday: nil,
+        gender: "Female",
+        image: ImageModel(
+            medium: "https://static.tvmaze.com/uploads/images/medium_portrait/191/479297.jpg",
+            original: "https://static.tvmaze.com/uploads/images/original_untouched/191/479297.jpg"
+        ),
+        updated: 1685777646,
+        links: PersonLinksModel(
+            selfLink: SelfLinkModel(href: "https://api.tvmaze.com/people/5309")
+        )
+    )
+
+    static let person3 = PersonModel(
+        id: 5310,
+        url: "https://www.tvmaze.com/people/5310/john-smith",
+        name: "John Smith",
+        country: CountryModel(
+            name: "United Kingdom",
+            code: "UK",
+            timezone: "Europe/London"
+        ),
+        birthday: "1985-05-15",
+        deathday: "2020-12-31",
+        gender: "Male",
+        image: ImageModel(
+            medium: "https://static.tvmaze.com/uploads/images/medium_portrait/191/479298.jpg",
+            original: "https://static.tvmaze.com/uploads/images/original_untouched/191/479298.jpg"
+        ),
+        updated: 1685777646,
+        links: PersonLinksModel(
+            selfLink: SelfLinkModel(href: "https://api.tvmaze.com/people/5310")
+        )
+    )
+    
+    static let personList = [person1, person2, person3]
 }

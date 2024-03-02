@@ -1,5 +1,5 @@
 //
-//  FavoritesListView.swift
+//  PeopleSearchView.swift
 //  TVMazeApp
 //
 //  Created by Jeann Luiz on 29/02/24.
@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct FavoritesListView: View {
-    @EnvironmentObject var viewModel: FavoriteViewModel
+struct PeopleListView: View {
+    @EnvironmentObject var viewModel: PersonViewModel
     
     var body: some View {
         NavigationView {
@@ -21,8 +21,8 @@ struct FavoritesListView: View {
                                                             
                     LazyVGrid(columns: viewModel.columns) {
                                                                         
-                        ForEach(viewModel.favoritesTvShowsSearched) { tvShowModel in
-                            TVShowCellView(tvShowModel: tvShowModel)
+                        ForEach(viewModel.personModel) { person in
+                            PersonCellView(personModel: person)
                         }
                     }
                     .searchable(text: $viewModel.searchText, prompt: "Type your search here")
@@ -30,8 +30,7 @@ struct FavoritesListView: View {
                         print(".onSubmit(of: .search)")
                         runSearch()
                     }
-                    .navigationTitle("⭐️ Favorites")
-//                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("🕵🏻‍♀️ People search")
                     
                 }
                 .padding()
@@ -54,11 +53,11 @@ struct FavoritesListView: View {
     
     func runSearch() {
         Task {
-            viewModel.getFavorites(searchQuery: viewModel.searchText)
+            viewModel.getPerson(searchQuery: viewModel.searchText)
         }
     }
 }
 
 #Preview {
-    FavoritesListView()
+    PeopleListView()
 }
