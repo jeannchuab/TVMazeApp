@@ -7,6 +7,17 @@
 
 import SwiftUI
 
+/*TODO
+  Pagination
+  Allow pin/password
+  Allow FaceId
+  Order Favorites alphabetically
+  Create people search
+  Show people details
+  Unit tests
+  Change from GRID to List
+*/
+
 @MainActor
 final class TVShowViewModel: ObservableObject {
     @Published var tvShowsModel: [TVShowModel] = []
@@ -85,7 +96,6 @@ final class TVShowViewModel: ObservableObject {
             isLoading = false
         }
     }
-
     
     func getTVShows(searchQuery: String = "") {
         if searchQuery.isEmpty {

@@ -74,9 +74,9 @@ final class FavoriteViewModel: ObservableObject {
             let result = try JSONDecoder().decode([TVShowModel].self, from: favoritesData)
             
             if searchQuery.isEmpty {
-                favoritesTvShows = result
+                favoritesTvShows = result.sorted(by: { $0.name < $1.name })
             } else {
-                favoritesTvShows = result.filter({ $0.name.contains(searchQuery) })
+                favoritesTvShows = result.filter({ $0.name.contains(searchQuery) }).sorted(by: { $0.name < $1.name })
             }                        
         } catch {
             alertItem = AlertItem(error: .invalidFavorite)

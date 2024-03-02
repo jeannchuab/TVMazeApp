@@ -38,7 +38,9 @@ struct TVShowListView: View {
                 }
             }
             .onAppear() {
-                runSearch()
+                if viewModel.tvShowsModel.isEmpty {
+                    runSearch()
+                }
             }
         }
         .alert(item: $viewModel.alertItem) { alertItem in
