@@ -13,6 +13,6 @@ struct UserModel: Codable {
     var password: String = ""
     var email: String = ""
     var birthday: Date = Date()
-    var extraNapkings: Bool = false
-    var frequentRefills: Bool = false
+    var isBiometricsEnabled: Bool = false
+    var isPasswordRequiredLaunch: Bool = false
 }

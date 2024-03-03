@@ -7,17 +7,18 @@
 
 import Foundation
 
+enum KeyChainError: Error, Equatable {
+    case duplicatedEntry
+    case unknown(OSStatus)
+    case invalidData
+    case dataNotFound
+}
+
 class KeyChainManager {
     
     static private let service = "TVMazeApp"
     static private let account = "default"
-    
-    enum KeyChainError: Error {
-        case duplicatedEntry
-        case unknown(OSStatus)
-        case invalidData
-    }
-    
+            
     static func save(user: Data) throws {
         let query = [
             kSecClass: kSecClassGenericPassword,
@@ -59,6 +60,10 @@ class KeyChainManager {
         var data: AnyObject?
         
         let status = SecItemCopyMatching(query, &data)
+        
+        guard data != nil else {
+            throw KeyChainError.dataNotFound
+        }
         
         guard status == errSecSuccess else {
             throw KeyChainError.unknown(status)

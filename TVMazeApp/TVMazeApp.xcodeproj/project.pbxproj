@@ -34,6 +34,7 @@
 		0F923F042B94C65200D569A9 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F032B94C65200D569A9 /* AccountViewModel.swift */; };
 		0F923F062B94C6DB00D569A9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F052B94C6DB00D569A9 /* UserModel.swift */; };
 		0F923F082B94CF5100D569A9 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F072B94CF5100D569A9 /* Date+Extensions.swift */; };
+		0F923F0B2B9505E600D569A9 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F0A2B9505E600D569A9 /* PasswordView.swift */; };
 		0FB07C5B2B936CBC00C6DA3E /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5A2B936CBC00C6DA3E /* PersonModel.swift */; };
 		0FB07C5D2B936F0900C6DA3E /* PersonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5C2B936F0900C6DA3E /* PersonListViewModel.swift */; };
 		0FB07C5F2B93723D00C6DA3E /* PersonCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5E2B93723D00C6DA3E /* PersonCellView.swift */; };
@@ -101,6 +102,7 @@
 		0F923F032B94C65200D569A9 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		0F923F052B94C6DB00D569A9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		0F923F072B94CF5100D569A9 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		0F923F0A2B9505E600D569A9 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 		0FB07C5A2B936CBC00C6DA3E /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
 		0FB07C5C2B936F0900C6DA3E /* PersonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonListViewModel.swift; sourceTree = "<group>"; };
 		0FB07C5E2B93723D00C6DA3E /* PersonCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCellView.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 			isa = PBXGroup;
 			children = (
 				0FDA05D02B910D0300E36AD8 /* TVMazeTabView.swift */,
+				0F923F092B9505C700D569A9 /* Password */,
 				0F7D8BF52B93C891006A5101 /* PersonList */,
 				0F7D8BF42B93C876006A5101 /* PersonDetails */,
 				0FDA05D42B910D7500E36AD8 /* Favorites */,
@@ -309,6 +312,14 @@
 				0F923F032B94C65200D569A9 /* AccountViewModel.swift */,
 			);
 			path = Account;
+			sourceTree = "<group>";
+		};
+		0F923F092B9505C700D569A9 /* Password */ = {
+			isa = PBXGroup;
+			children = (
+				0F923F0A2B9505E600D569A9 /* PasswordView.swift */,
+			);
+			path = Password;
 			sourceTree = "<group>";
 		};
 		0FDA05CD2B910CC700E36AD8 /* TVShow */ = {
@@ -515,6 +526,7 @@
 				0FDA05D32B910D6200E36AD8 /* FavoritesListView.swift in Sources */,
 				0F923F042B94C65200D569A9 /* AccountViewModel.swift in Sources */,
 				0F3E9EAE2B8F8E650053EE62 /* TVMazeAppApp.swift in Sources */,
+				0F923F0B2B9505E600D569A9 /* PasswordView.swift in Sources */,
 				0F923F062B94C6DB00D569A9 /* UserModel.swift in Sources */,
 				0FB07C5F2B93723D00C6DA3E /* PersonCellView.swift in Sources */,
 				0F3E9EEC2B8FC42A0053EE62 /* TVShowViewModel.swift in Sources */,

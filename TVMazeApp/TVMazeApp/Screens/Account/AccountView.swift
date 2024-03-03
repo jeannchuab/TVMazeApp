@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AccountView: View {
-    @StateObject var viewModel = AccountViewModel()
+    @EnvironmentObject var viewModel: AccountViewModel
         
     enum FormTextField {
         case firstName, lastName, email
@@ -23,10 +23,10 @@ struct AccountView: View {
                     SectionPersonalInfo(viewModel: viewModel)
 
                     Section("Settings") {
-                        Toggle("Enable Biometrics", isOn: $viewModel.userModel.extraNapkings)
+                        Toggle("Enable Biometrics", isOn: $viewModel.userModel.isBiometricsEnabled)
                             .tint(.accentColor)
                             
-                        Toggle("Required password on launch", isOn: $viewModel.userModel.frequentRefills)
+                        Toggle("Required password on launch", isOn: $viewModel.userModel.isPasswordRequiredLaunch)
                             .tint(.accentColor)
                     }
                     

@@ -46,7 +46,7 @@ struct TVShowListView: View {
             Alert(title: alertItem.title,
                   message: alertItem.message,
                   dismissButton: alertItem.dismissButton)
-        }
+        }        
         .environmentObject(viewModel)
     }
     

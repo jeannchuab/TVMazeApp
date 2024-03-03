@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 final class AccountViewModel: ObservableObject {
     @Published var userModel = UserModel()
     @Published var alertItem: AlertItem?
@@ -44,8 +45,16 @@ final class AccountViewModel: ObservableObject {
         do {
             let userData = try KeyChainManager.getUser()
             self.userModel = try JSONDecoder().decode(UserModel.self, from: userData)
-        } catch {
-            alertItem = AlertItem(error: .invalidUserData)
+            
+        } catch let error {
+            guard let keyChainError = error as? KeyChainError else {
+                alertItem = AlertItem(error: .invalidUserData)
+                return
+            }
+            
+            if keyChainError != .dataNotFound {
+                alertItem = AlertItem(error: .invalidUserData)
+            }
         }
     }
 }
