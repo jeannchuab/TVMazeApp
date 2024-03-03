@@ -9,18 +9,13 @@ import SwiftUI
 
 struct AccountView: View {
     @StateObject var viewModel = AccountViewModel()
-     
-    init() {
-        UITableView.appearance().backgroundColor = .clear
-    }
-    
+        
     enum FormTextField {
         case firstName, lastName, email
     }
     
     var body: some View {
         NavigationView {
-            
             ZStack {
                 BackgroundView()
                 
@@ -64,7 +59,7 @@ struct SectionPersonalInfo: View {
     @ObservedObject var viewModel: AccountViewModel
     
     enum FormTextField: Hashable {
-        case firstName, lastName, email
+        case firstName, lastName, password, email
     }
     
     var body: some View {
@@ -80,6 +75,14 @@ struct SectionPersonalInfo: View {
             TextField("Last name", text: $viewModel.userModel.lastName)
                 .autocorrectionDisabled(false)
                 .focused($focusedTextField, equals: FormTextField.lastName)
+                .submitLabel(.next)
+                .onSubmit {
+                    focusedTextField = .password
+                }
+            
+            SecureField("Password", text: $viewModel.userModel.password)
+                .autocorrectionDisabled(false)
+                .focused($focusedTextField, equals: FormTextField.password)
                 .submitLabel(.next)
                 .onSubmit {
                     focusedTextField = .email

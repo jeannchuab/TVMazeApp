@@ -10,6 +10,7 @@ import Foundation
 struct UserModel: Codable {
     var firstName: String = ""
     var lastName: String = ""
+    var password: String = ""
     var email: String = ""
     var birthday: Date = Date()
     var extraNapkings: Bool = false

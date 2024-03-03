@@ -8,33 +8,68 @@
 import Foundation
 
 class KeyChainManager {
+    
+    static private let service = "TVMazeApp"
+    static private let account = "default"
+    
     enum KeyChainError: Error {
         case duplicatedEntry
         case unknown(OSStatus)
+        case invalidData
+    }
+    
+    static func save(user: Data) throws {
+        let query = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrService: service,
+            kSecAttrAccount: account,
+            kSecValueData: user,
+        ] as CFDictionary
         
-        static func save(service: String, account: String, passoword: Data) throws {
-            let query: [String: AnyObject] = [
-                kSecClass as String: kSecClassGenericPassword,
-                kSecAttrService as String: service as AnyObject,
-                kSecAttrAccount as String: account as AnyObject,
-                kSecValueData as String: passoword as AnyObject,
-            ]
+        var status = SecItemAdd(query as CFDictionary, nil)
+        
+        if status == errSecDuplicateItem {
             
-            let status = SecItemAdd(query as CFDictionary, nil)
+            let queryUpdate = [
+                kSecClass: kSecClassGenericPassword,
+                kSecAttrService: service,
+                kSecAttrAccount: account,
+            ] as CFDictionary
             
-            guard status != errSecDuplicateItem else {
-                throw duplicatedEntry
-            }
+            let attributesToUpdate = [kSecValueData: user] as CFDictionary
             
-            guard status == errSecSuccess else {
-                throw unknown(status)
-            }
-            
-            print("Data saved on Keychain")
+            status = SecItemUpdate(queryUpdate, attributesToUpdate)
         }
         
-        static func get() {
-            
+        guard status == noErr else {
+            throw KeyChainError.unknown(status)
         }
+        
+        print("Data saved on Keychain")
+    }
+    
+    static func getUser() throws -> Data {
+        let query = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: account,
+            kSecAttrService: service,
+            kSecReturnData: true,
+        ] as CFDictionary
+        
+        var data: AnyObject?
+        
+        let status = SecItemCopyMatching(query, &data)
+        
+        guard status == errSecSuccess else {
+            throw KeyChainError.unknown(status)
+        }
+        
+        print("Data retrieve from Keychain. Status: \(status)")
+        
+        guard let result = data as? Data else {
+            throw KeyChainError.invalidData
+        }
+        
+        return result
     }
 }

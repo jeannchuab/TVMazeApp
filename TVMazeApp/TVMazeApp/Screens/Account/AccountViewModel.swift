@@ -7,9 +7,7 @@
 
 import SwiftUI
 
-final class AccountViewModel: ObservableObject {    
-    @AppStorage("user") private var userData: Data?
-    
+final class AccountViewModel: ObservableObject {
     @Published var userModel = UserModel()
     @Published var alertItem: AlertItem?
     
@@ -34,7 +32,8 @@ final class AccountViewModel: ObservableObject {
         
         do {
             let data = try JSONEncoder().encode(userModel)
-            userData = data
+            try KeyChainManager.save(user: data)
+            
             alertItem = AlertItem(error: .userSaveSucess)
         } catch {
             alertItem = AlertItem(error: .invalidUserData)
@@ -42,10 +41,9 @@ final class AccountViewModel: ObservableObject {
     }
     
     func retrieveUser() {
-        guard let userData else { return }
-        
         do {
-            userModel = try JSONDecoder().decode(UserModel.self, from: userData)
+            let userData = try KeyChainManager.getUser()
+            self.userModel = try JSONDecoder().decode(UserModel.self, from: userData)
         } catch {
             alertItem = AlertItem(error: .invalidUserData)
         }
