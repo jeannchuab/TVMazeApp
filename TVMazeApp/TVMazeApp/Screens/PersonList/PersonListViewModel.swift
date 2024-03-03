@@ -26,46 +26,22 @@ final class PersonListViewModel: ObservableObject {
     
     var currentPage = 0
     
-    //    func loadNextPage() {
-    //        currentPage += 1
-    //
-    //        isLoading = true
-    //
-    //        Task {
-    //            do {
-    //                let result = try await NetworkManager.getAllShows(page: currentPage)
-    //                tvShowsModel.append(contentsOf: result)
-    //            } catch let error {
-    //                if error is CustomError {
-    //                    guard let customError = error as? CustomError else { return }
-    //                    alertItem = AlertItem(error: customError)
-    //                } else {
-    //                    alertItem = AlertItem(error: .invalidData)
-    //                }
-    //            }
-    //
-    //            isLoading = false
-    //        }
-    //    }
-    
-//    func removeSelectedPerson() {
-//        selectedPersonModel = nil
-//    }
-    
-    private func get(endpoint: Endpoint, searchQuery: String = "") {
+    func shouldLoadMoreData(person: PersonModel) {
+        if person.id == personList.last?.id && searchText.isEmpty {
+            print("Last cell")
+            currentPage += 1
+            getPersonBySearch(searchQuery: searchText)
+        }
+    }
+        
+    private func get(endpoint: Endpoint, page: Int, searchQuery: String = "") {
         isLoading = true
         
         Task {
-            do {
-//                personModel = []
-                
+            do {                
                 switch endpoint {
-//                case .personById(let id):
-//                    selectedPersonModel = nil
-//                    selectedPersonModel = try await NetworkManager.getPerson(id: id)
-//                    getTVShowsFrom(idPerson: id)
                 case .personAll:
-                    personList = try await NetworkManager.getAllPerson()
+                    personList = try await NetworkManager.getAllPerson(page: page)
                 case .personBySearch:
                     personList = try await NetworkManager.searchPerson(searchQuery: searchQuery)
                 default:
@@ -85,9 +61,9 @@ final class PersonListViewModel: ObservableObject {
     
     func getPersonBySearch(searchQuery: String) {
         if searchQuery.isEmpty {
-            get(endpoint: .personAll)
+            get(endpoint: .personAll, page: currentPage)
         } else {
-            get(endpoint: .personBySearch, searchQuery: searchQuery)
+            get(endpoint: .personBySearch, page: currentPage, searchQuery: searchQuery)
         }
     }
 }

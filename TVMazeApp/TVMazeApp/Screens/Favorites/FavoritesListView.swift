@@ -30,9 +30,7 @@ struct FavoritesListView: View {
                         print(".onSubmit(of: .search)")
                         runSearch()
                     }
-                    .navigationTitle("⭐️ Favorites")
-//                    .navigationBarTitleDisplayMode(.inline)
-                    
+                    .navigationTitle("⭐️ Favorites")                   
                 }
                 .padding()
                 

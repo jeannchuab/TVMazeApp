@@ -8,16 +8,8 @@
 import SwiftUI
 
 struct PersonCellView: View {
-    
+   
     var personModel: PersonModel
-//    @State var isShowingDetail: Bool 
-//    = false {
-//        didSet {
-//            if isShowingDetail {
-//                personViewModel.removeSelectedPerson()
-//            }
-//        }
-//    }
     
     @EnvironmentObject var personViewModel: PersonListViewModel
     
@@ -45,13 +37,8 @@ struct PersonCellView: View {
                     .padding(.top, 4)
                 
                 Spacer()
-                
-                
             }
             .padding(.bottom)
-        }
-        .onTapGesture {
-//            personViewModel.selectedPersonModel = nil
         }
     }
 }

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 final class EpisodesViewModel: ObservableObject {
     @Published var episodesModel: [EpisodeModel] = []
     @Published var alertItem: AlertItem?

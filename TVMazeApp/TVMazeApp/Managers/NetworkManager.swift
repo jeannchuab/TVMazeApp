@@ -51,8 +51,7 @@ enum Endpoint: Equatable {
             return Paths.search.rawValue + "/" + Paths.people.rawValue
         
         case .personAll:
-            return Paths.people.rawValue
-        
+            return Paths.people.rawValue        
         }
     }
 }

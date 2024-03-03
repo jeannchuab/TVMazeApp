@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TVShowListView: View {
-    @EnvironmentObject var viewModel: TVShowViewModel    
+    @EnvironmentObject var viewModel: TVShowViewModel
     
     var body: some View {
         NavigationView {
@@ -16,16 +16,15 @@ struct TVShowListView: View {
                 BackgroundView()
                 
                 ScrollView {
-                    
-                    //TODO: Implement pagination
-                                                            
                     LazyVGrid(columns: viewModel.columns) {
-                                                                        
                         ForEach(viewModel.tvShowsModel) { tvShowModel in
                             TVShowCellView(tvShowModel: tvShowModel)
+                                .onAppear {
+                                    viewModel.shouldLoadMoreData(tvShow: tvShowModel)
+                                }
                         }
                     }
-                    .searchable(text: $viewModel.searchText, prompt: "Type your search here")                                           
+                    .searchable(text: $viewModel.searchText, prompt: "Type your search here")
                     .onSubmit(of: .search) {
                         runSearch()
                     }
@@ -48,7 +47,7 @@ struct TVShowListView: View {
                   message: alertItem.message,
                   dismissButton: alertItem.dismissButton)
         }
-        .environmentObject(viewModel)        
+        .environmentObject(viewModel)
     }
     
     func runSearch() {

@@ -22,9 +22,7 @@ final class PersonDetailViewModel: ObservableObject {
         isLoading = true
         
         Task {
-            do {
-//                personModel = []
-                
+            do {                
                 switch endpoint {
                 case .personById(let id):
                     personModel = nil

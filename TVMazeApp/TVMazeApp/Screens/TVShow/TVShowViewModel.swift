@@ -7,17 +7,6 @@
 
 import SwiftUI
 
-/*TODO
-  Pagination
-  Allow pin/password
-  Allow FaceId
-  Order Favorites alphabetically
-  Create people search
-  Show people details
-  Unit tests
-  Change from GRID to List
-*/
-
 @MainActor
 final class TVShowViewModel: ObservableObject {
     @Published var tvShowsModel: [TVShowModel] = []
@@ -36,30 +25,16 @@ final class TVShowViewModel: ObservableObject {
                                GridItem(.flexible())]
     
     var currentPage = 0
-    
-//    func loadNextPage() {
-//        currentPage += 1
-//
-//        isLoading = true
-//
-//        Task {
-//            do {
-//                let result = try await NetworkManager.getAllShows(page: currentPage)
-//                tvShowsModel.append(contentsOf: result)
-//            } catch let error {
-//                if error is CustomError {
-//                    guard let customError = error as? CustomError else { return }
-//                    alertItem = AlertItem(error: customError)
-//                } else {
-//                    alertItem = AlertItem(error: .invalidData)
-//                }
-//            }
-//
-//            isLoading = false
-//        }
-//    }
         
-    private func get(endpoint: Endpoint, searchQuery: String = "") {
+    func shouldLoadMoreData(tvShow: TVShowModel) {        
+        if tvShow.id == tvShowsModel.last?.id && searchText.isEmpty {
+            print("Last cell")
+            currentPage += 1
+            getTVShows(searchQuery: searchText)
+        }
+    }
+        
+    private func get(endpoint: Endpoint, page: Int, searchQuery: String = "") {
         isLoading = true
         
         Task {
@@ -70,8 +45,13 @@ final class TVShowViewModel: ObservableObject {
                     tvShowsModel = try await NetworkManager.searchTVShow(searchQuery: searchQuery)
                     
                 case .tvShowAll:
-                    tvShowsModel = []
-                    tvShowsModel = try await NetworkManager.getAllShows()
+                    var result = try await NetworkManager.getAllShows(page: page)
+                    if page == 0 {
+                        tvShowsModel = []
+                        tvShowsModel = result
+                    } else {
+                        tvShowsModel.append(contentsOf: result)
+                    }
                     
                 default:
                     alertItem = AlertItem(error: .endpointNotFound)                    
@@ -91,9 +71,9 @@ final class TVShowViewModel: ObservableObject {
     
     func getTVShows(searchQuery: String = "") {
         if searchQuery.isEmpty {
-            get(endpoint: .tvShowAll)
+            get(endpoint: .tvShowAll, page: currentPage)
         } else {
-            get(endpoint: .tvShowBySearch, searchQuery: searchQuery)
+            get(endpoint: .tvShowBySearch, page: currentPage, searchQuery: searchQuery)
         }
     }        
 }

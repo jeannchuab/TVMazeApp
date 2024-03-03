@@ -59,8 +59,7 @@ struct EpisodeModel: Codable, Identifiable {
         }
         
         return result
-    }
-        
+    }        
 }
 
 struct EpisodeLinksModel: Codable {

@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct SeasonsListView: View {
-    
+struct SeasonsListView: View {    
     var tvShowModel = MockData.tvShow1
     @StateObject var viewModel = SeasonsViewModel()
     

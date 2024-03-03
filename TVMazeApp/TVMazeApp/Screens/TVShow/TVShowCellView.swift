@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-struct TVShowCellView: View {
-    
+struct TVShowCellView: View {    
     var tvShowModel: TVShowModel
     @EnvironmentObject var favoriteViewModel: FavoriteViewModel
     

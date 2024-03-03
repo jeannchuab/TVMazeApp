@@ -16,22 +16,19 @@ struct PersonListView: View {
                 BackgroundView()
                 
                 ScrollView {
-                    
-                    //TODO: Implement pagination
-                                                            
-                    LazyVGrid(columns: viewModel.columns, spacing: 16) {
-                                                                        
+                    LazyVGrid(columns: viewModel.columns, spacing: 16) {                                                                        
                         ForEach(viewModel.personList) { person in
                             PersonCellView(personModel: person)
+                                .onAppear {
+                                    viewModel.shouldLoadMoreData(person: person)
+                                }
                         }
                     }
                     .searchable(text: $viewModel.searchText, prompt: "Type your search here")
                     .onSubmit(of: .search) {
-                        print(".onSubmit(of: .search)")
                         runSearch()
                     }
                     .navigationTitle("🕵🏻‍♀️ People search")
-                    
                 }
                 .padding()
                 
