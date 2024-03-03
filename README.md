@@ -2,7 +2,7 @@
 
 ## Project definition
 
-The main goal of this project it's an integration with [TVMaze API](https://www.tvmaze.com/api)
+The main goal of this project it's an integration with the REST API [TVMaze](https://www.tvmaze.com/api)
 
 ## What was used in development
  - Xcode 15.0.1
