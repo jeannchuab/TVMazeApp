@@ -35,7 +35,7 @@
 		0F923F062B94C6DB00D569A9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F052B94C6DB00D569A9 /* UserModel.swift */; };
 		0F923F082B94CF5100D569A9 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F072B94CF5100D569A9 /* Date+Extensions.swift */; };
 		0F923F0B2B9505E600D569A9 /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F0A2B9505E600D569A9 /* PasswordView.swift */; };
-		0F923F0F2B95192900D569A9 /* PasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F0E2B95192900D569A9 /* PasswordViewModel.swift */; };
+		0F923F112B95266700D569A9 /* FavoriteEmptyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F102B95266700D569A9 /* FavoriteEmptyListView.swift */; };
 		0FB07C5B2B936CBC00C6DA3E /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5A2B936CBC00C6DA3E /* PersonModel.swift */; };
 		0FB07C5D2B936F0900C6DA3E /* PersonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5C2B936F0900C6DA3E /* PersonListViewModel.swift */; };
 		0FB07C5F2B93723D00C6DA3E /* PersonCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5E2B93723D00C6DA3E /* PersonCellView.swift */; };
@@ -104,7 +104,7 @@
 		0F923F052B94C6DB00D569A9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		0F923F072B94CF5100D569A9 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		0F923F0A2B9505E600D569A9 /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
-		0F923F0E2B95192900D569A9 /* PasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordViewModel.swift; sourceTree = "<group>"; };
+		0F923F102B95266700D569A9 /* FavoriteEmptyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteEmptyListView.swift; sourceTree = "<group>"; };
 		0FB07C5A2B936CBC00C6DA3E /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
 		0FB07C5C2B936F0900C6DA3E /* PersonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonListViewModel.swift; sourceTree = "<group>"; };
 		0FB07C5E2B93723D00C6DA3E /* PersonCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCellView.swift; sourceTree = "<group>"; };
@@ -320,7 +320,6 @@
 			isa = PBXGroup;
 			children = (
 				0F923F0A2B9505E600D569A9 /* PasswordView.swift */,
-				0F923F0E2B95192900D569A9 /* PasswordViewModel.swift */,
 			);
 			path = Password;
 			sourceTree = "<group>";
@@ -360,6 +359,7 @@
 			children = (
 				0FDA05D22B910D6200E36AD8 /* FavoritesListView.swift */,
 				0FDA05D82B9112C600E36AD8 /* FavoriteViewModel.swift */,
+				0F923F102B95266700D569A9 /* FavoriteEmptyListView.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -494,7 +494,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F923F0F2B95192900D569A9 /* PasswordViewModel.swift in Sources */,
 				0F3E9EE12B8FA7200053EE62 /* BackgroundView.swift in Sources */,
 				0FB07C652B93ABA400C6DA3E /* NetworkManager+TVShows.swift in Sources */,
 				0F3E9EE82B8FB4470053EE62 /* CustomError.swift in Sources */,
@@ -504,6 +503,7 @@
 				0FB07C692B93AC1200C6DA3E /* NetworkManager+Episodes.swift in Sources */,
 				0F923EFB2B94AB7B00D569A9 /* SeasonsViewModel.swift in Sources */,
 				0FD53C2B2B90D43E00BC21F9 /* EpisodesListView.swift in Sources */,
+				0F923F112B95266700D569A9 /* FavoriteEmptyListView.swift in Sources */,
 				0F3E9EFD2B8FE1D60053EE62 /* String+Extensions.swift in Sources */,
 				0F3E9EDE2B8F9C910053EE62 /* TVShowDetailView.swift in Sources */,
 				0FD53C2F2B90F6D100BC21F9 /* EpisodeDetailView.swift in Sources */,

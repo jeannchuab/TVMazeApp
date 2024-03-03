@@ -27,8 +27,7 @@ final class TVShowViewModel: ObservableObject {
     var currentPage = 0
         
     func shouldLoadMoreData(tvShow: TVShowModel) {        
-        if tvShow.id == tvShowsModel.last?.id && searchText.isEmpty {
-            print("Last cell")
+        if tvShow.id == tvShowsModel.last?.id && searchText.isEmpty {            
             currentPage += 1
             getTVShows(searchQuery: searchText)
         }

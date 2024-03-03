@@ -27,8 +27,7 @@ final class PersonListViewModel: ObservableObject {
     var currentPage = 0
     
     func shouldLoadMoreData(person: PersonModel) {
-        if person.id == personList.last?.id && searchText.isEmpty {
-            print("Last cell")
+        if person.id == personList.last?.id && searchText.isEmpty {            
             currentPage += 1
             getPersonBySearch(searchQuery: searchText)
         }

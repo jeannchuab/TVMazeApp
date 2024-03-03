@@ -16,9 +16,6 @@ struct FavoritesListView: View {
                 BackgroundView()
                 
                 ScrollView {
-                    
-                    //TODO: Implement pagination
-                                                            
                     LazyVGrid(columns: viewModel.columns) {
                                                                         
                         ForEach(viewModel.favoritesTvShowsSearched) { tvShowModel in
@@ -26,8 +23,7 @@ struct FavoritesListView: View {
                         }
                     }
                     .searchable(text: $viewModel.searchText, prompt: "Type your search here")
-                    .onSubmit(of: .search) {
-                        print(".onSubmit(of: .search)")
+                    .onSubmit(of: .search) {                        
                         runSearch()
                     }
                     .navigationTitle("⭐️ Favorites")                   
@@ -36,6 +32,10 @@ struct FavoritesListView: View {
                 
                 if viewModel.isLoading {
                     LoadingView()
+                }
+                
+                if viewModel.favoritesTvShows.isEmpty {
+                    FavoriteEmptyListView()
                 }
             }
             .onAppear() {

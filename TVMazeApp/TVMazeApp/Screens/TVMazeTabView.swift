@@ -57,8 +57,7 @@ struct TVMazeTabView: View {
     
     func checkPasswordRequired() {
         accountViewModel.retrieveUser()
-        isShowingPasswordView = accountViewModel.userModel.isPasswordRequiredLaunch
-        print("UserModel: ", accountViewModel.userModel)
+        isShowingPasswordView = accountViewModel.userModel.isPasswordRequiredLaunch        
     }
 }
 
