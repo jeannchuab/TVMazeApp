@@ -10,7 +10,7 @@ import SwiftUI
 struct EpisodesListView: View {
     var tvShowModel = MockData.tvShow1
     var seasonModel = MockData.season1
-    @EnvironmentObject var viewModel: TVShowViewModel
+    @StateObject var viewModel = EpisodesViewModel()
     
     var body: some View {
         ZStack {
@@ -19,7 +19,6 @@ struct EpisodesListView: View {
                                     
             ScrollView {
                 VStack {
-                    
                     Text("Season \(seasonModel.number)")
                         .font(.title2)
                         .fontWeight(.bold)

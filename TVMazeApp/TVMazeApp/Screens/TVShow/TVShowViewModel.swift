@@ -21,8 +21,6 @@ import SwiftUI
 @MainActor
 final class TVShowViewModel: ObservableObject {
     @Published var tvShowsModel: [TVShowModel] = []
-    @Published var seasonsModel: [SeasonModel] = []
-    @Published var episodesModel: [EpisodeModel] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading: Bool = false
     
@@ -75,14 +73,6 @@ final class TVShowViewModel: ObservableObject {
                     tvShowsModel = []
                     tvShowsModel = try await NetworkManager.getAllShows()
                     
-                case .seasons(let idTvShow):
-                    seasonsModel = []
-                    seasonsModel = try await NetworkManager.getSeasons(idTvShow: idTvShow)
-                    
-                case .episodes(let idSeason):
-                    episodesModel = []
-                    episodesModel = try await NetworkManager.getEpisodes(idSeason: idSeason)
-                    
                 default:
                     alertItem = AlertItem(error: .endpointNotFound)                    
                 }
@@ -105,13 +95,5 @@ final class TVShowViewModel: ObservableObject {
         } else {
             get(endpoint: .tvShowBySearch, searchQuery: searchQuery)
         }
-    }
-    
-    func getSeasons(idTVShow: Int) {
-        get(endpoint: .seasons(idTVShow))
-    }
-    
-    func getEpisodes(idSeason: Int) {
-        get(endpoint: .episodes(idSeason))
-    }
+    }        
 }

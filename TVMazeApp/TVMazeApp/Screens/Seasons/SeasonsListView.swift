@@ -10,7 +10,7 @@ import SwiftUI
 struct SeasonsListView: View {
     
     var tvShowModel = MockData.tvShow1
-    @EnvironmentObject var viewModel: TVShowViewModel
+    @StateObject var viewModel = SeasonsViewModel()
     
     var body: some View {
         ZStack {

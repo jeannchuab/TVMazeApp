@@ -10,7 +10,7 @@ import SwiftUI
 struct TVShowDetailView: View {
     var tvShowModel = MockData.tvShow1
     @EnvironmentObject var viewModel: TVShowViewModel
-    @EnvironmentObject var favoriteViewModel: FavoriteViewModel
+    @EnvironmentObject var favoriteViewModel: FavoriteViewModel    
     @State var isFavorite: Bool
     
     var body: some View {        
