@@ -42,6 +42,7 @@ struct EpisodesListView: View {
                                     .fontWeight(.semibold)
                                     .padding(.bottom)
                             }
+                            .padding([.trailing, .leading])
                         }
                         
                         Divider()

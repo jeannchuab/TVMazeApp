@@ -45,7 +45,7 @@ final class TVShowViewModel: ObservableObject {
                     tvShowsModel = try await NetworkManager.searchTVShow(searchQuery: searchQuery)
                     
                 case .tvShowAll:
-                    var result = try await NetworkManager.getAllShows(page: page)
+                    let result = try await NetworkManager.getAllShows(page: page)
                     if page == 0 {
                         tvShowsModel = []
                         tvShowsModel = result

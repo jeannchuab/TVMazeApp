@@ -28,6 +28,11 @@ struct TVMazeTabView: View {
                 .tabItem {
                     Label("People search", systemImage: "person")
                 }
+            
+            AccountView()
+                .tabItem {
+                    Label("Account", systemImage: "gear")
+                }
         }
         .environmentObject(favoritesViewModel)
         .environmentObject(personViewModel)

@@ -38,8 +38,6 @@ struct EpisodeDetailView: View {
                         .padding(.bottom, 4)
                         .multilineTextAlignment(.center)
                         .padding([.trailing, .leading])
-                        .lineLimit(2, reservesSpace: false)
-                        .scaledToFit()
                                                             
                     Divider()
                         .foregroundColor(.accentColor)

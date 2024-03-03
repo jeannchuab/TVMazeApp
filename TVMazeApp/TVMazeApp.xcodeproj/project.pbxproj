@@ -29,6 +29,11 @@
 		0F7D8BF72B93C8C5006A5101 /* PersonDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F7D8BF62B93C8C5006A5101 /* PersonDetailViewModel.swift */; };
 		0F923EFB2B94AB7B00D569A9 /* SeasonsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923EFA2B94AB7B00D569A9 /* SeasonsViewModel.swift */; };
 		0F923EFD2B94B44600D569A9 /* EpisodesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923EFC2B94B44600D569A9 /* EpisodesViewModel.swift */; };
+		0F923EFF2B94C29D00D569A9 /* KeyChainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923EFE2B94C29D00D569A9 /* KeyChainManager.swift */; };
+		0F923F012B94C61E00D569A9 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F002B94C61E00D569A9 /* AccountView.swift */; };
+		0F923F042B94C65200D569A9 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F032B94C65200D569A9 /* AccountViewModel.swift */; };
+		0F923F062B94C6DB00D569A9 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F052B94C6DB00D569A9 /* UserModel.swift */; };
+		0F923F082B94CF5100D569A9 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F923F072B94CF5100D569A9 /* Date+Extensions.swift */; };
 		0FB07C5B2B936CBC00C6DA3E /* PersonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5A2B936CBC00C6DA3E /* PersonModel.swift */; };
 		0FB07C5D2B936F0900C6DA3E /* PersonListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5C2B936F0900C6DA3E /* PersonListViewModel.swift */; };
 		0FB07C5F2B93723D00C6DA3E /* PersonCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB07C5E2B93723D00C6DA3E /* PersonCellView.swift */; };
@@ -91,6 +96,11 @@
 		0F7D8BF62B93C8C5006A5101 /* PersonDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailViewModel.swift; sourceTree = "<group>"; };
 		0F923EFA2B94AB7B00D569A9 /* SeasonsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonsViewModel.swift; sourceTree = "<group>"; };
 		0F923EFC2B94B44600D569A9 /* EpisodesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesViewModel.swift; sourceTree = "<group>"; };
+		0F923EFE2B94C29D00D569A9 /* KeyChainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChainManager.swift; sourceTree = "<group>"; };
+		0F923F002B94C61E00D569A9 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		0F923F032B94C65200D569A9 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		0F923F052B94C6DB00D569A9 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		0F923F072B94CF5100D569A9 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		0FB07C5A2B936CBC00C6DA3E /* PersonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonModel.swift; sourceTree = "<group>"; };
 		0FB07C5C2B936F0900C6DA3E /* PersonListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonListViewModel.swift; sourceTree = "<group>"; };
 		0FB07C5E2B93723D00C6DA3E /* PersonCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonCellView.swift; sourceTree = "<group>"; };
@@ -205,6 +215,7 @@
 				0FD53C282B90CD6700BC21F9 /* SeasonModel.swift */,
 				0FD53C2C2B90F18A00BC21F9 /* EpisodesModel.swift */,
 				0FB07C5A2B936CBC00C6DA3E /* PersonModel.swift */,
+				0F923F052B94C6DB00D569A9 /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -218,6 +229,7 @@
 				0FDA05D42B910D7500E36AD8 /* Favorites */,
 				0FDA05CF2B910CD300E36AD8 /* Episode */,
 				0FDA05CE2B910CCE00E36AD8 /* Seasons */,
+				0F923F022B94C62A00D569A9 /* Account */,
 				0FDA05CD2B910CC700E36AD8 /* TVShow */,
 			);
 			path = Screens;
@@ -241,6 +253,7 @@
 				0FB07C642B93ABA400C6DA3E /* NetworkManager+TVShows.swift */,
 				0FB07C662B93ABEB00C6DA3E /* NetworkManager+Seasons.swift */,
 				0FB07C682B93AC1200C6DA3E /* NetworkManager+Episodes.swift */,
+				0F923EFE2B94C29D00D569A9 /* KeyChainManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -258,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				0F3E9EFC2B8FE1D60053EE62 /* String+Extensions.swift */,
+				0F923F072B94CF5100D569A9 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -286,6 +300,15 @@
 			children = (
 			);
 			path = ViewModifiers;
+			sourceTree = "<group>";
+		};
+		0F923F022B94C62A00D569A9 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				0F923F002B94C61E00D569A9 /* AccountView.swift */,
+				0F923F032B94C65200D569A9 /* AccountViewModel.swift */,
+			);
+			path = Account;
 			sourceTree = "<group>";
 		};
 		0FDA05CD2B910CC700E36AD8 /* TVShow */ = {
@@ -469,6 +492,7 @@
 				0F3E9EFD2B8FE1D60053EE62 /* String+Extensions.swift in Sources */,
 				0F3E9EDE2B8F9C910053EE62 /* TVShowDetailView.swift in Sources */,
 				0FD53C2F2B90F6D100BC21F9 /* EpisodeDetailView.swift in Sources */,
+				0F923EFF2B94C29D00D569A9 /* KeyChainManager.swift in Sources */,
 				0FB07C5D2B936F0900C6DA3E /* PersonListViewModel.swift in Sources */,
 				0F7D8BF72B93C8C5006A5101 /* PersonDetailViewModel.swift in Sources */,
 				0F3E9EE52B8FB3F40053EE62 /* NetworkManager.swift in Sources */,
@@ -480,14 +504,18 @@
 				0F3E9EF32B8FCE860053EE62 /* RemoteImage.swift in Sources */,
 				0FDA05D62B910D8D00E36AD8 /* PersonListView.swift in Sources */,
 				0FDA05D12B910D0300E36AD8 /* TVMazeTabView.swift in Sources */,
+				0F923F012B94C61E00D569A9 /* AccountView.swift in Sources */,
 				0FD53C272B90BB4000BC21F9 /* SeasonsListView.swift in Sources */,
 				0F3E9EF12B8FC5DC0053EE62 /* LoadingView.swift in Sources */,
 				0F3E9EDB2B8F92D20053EE62 /* MockData.swift in Sources */,
 				0F3E9EEA2B8FC33C0053EE62 /* TVShowCellView.swift in Sources */,
+				0F923F082B94CF5100D569A9 /* Date+Extensions.swift in Sources */,
 				0F3E9ED92B8F911A0053EE62 /* TVShowModel.swift in Sources */,
 				0F923EFD2B94B44600D569A9 /* EpisodesViewModel.swift in Sources */,
 				0FDA05D32B910D6200E36AD8 /* FavoritesListView.swift in Sources */,
+				0F923F042B94C65200D569A9 /* AccountViewModel.swift in Sources */,
 				0F3E9EAE2B8F8E650053EE62 /* TVMazeAppApp.swift in Sources */,
+				0F923F062B94C6DB00D569A9 /* UserModel.swift in Sources */,
 				0FB07C5F2B93723D00C6DA3E /* PersonCellView.swift in Sources */,
 				0F3E9EEC2B8FC42A0053EE62 /* TVShowViewModel.swift in Sources */,
 				0F3E9EEE2B8FC4740053EE62 /* AlertContext.swift in Sources */,

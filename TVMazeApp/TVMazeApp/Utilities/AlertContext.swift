@@ -43,6 +43,24 @@ struct AlertItem: Identifiable {
         case .endpointNotFound:
             title = Text("Local error")
             message = Text("The specified endpoint was not found.")
+        
+        //MARK: Account
+            
+        case .missingRequiredFields:
+            title = Text("Required fields missing")
+            message = Text("One or more required fields are missing, can you please double check?")
+            
+        case .invalidEmail:
+            title = Text("Invalid email")
+            message = Text("The specified endpoint was not found.")
+            
+        case .userSaveSucess:
+            title = Text("Profile saved")
+            message = Text("Your profile information was sucessfully saved.")
+            
+        case .invalidUserData:
+            title = Text("Profile error")
+            message = Text("There was an error saving or retrieving the profile.")            
         }
     }
 }

@@ -15,4 +15,8 @@ enum CustomError: Error {
     case unknownError
     case invalidFavorite
     case endpointNotFound
+    case missingRequiredFields
+    case invalidEmail
+    case userSaveSucess
+    case invalidUserData
 }
