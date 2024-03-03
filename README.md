@@ -1,4 +1,4 @@
-<h1 align="center">Cat App</h1>
+<h1 align="center">TV Maze iOS Mobile App</h1>
 
 ## Project definition
 
