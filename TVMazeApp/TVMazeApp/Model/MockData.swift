@@ -343,4 +343,16 @@ struct MockData {
     )
     
     static let personList = [person1, person2, person3]
+    
+    //MARK: User
+    
+    static let user1 = UserModel(firstName: "Pablo",
+                                lastName: "Costa",
+                                password: "132456abcd",
+                                email: "pablo.costa@myemail.com")
+    
+    static let user2 = UserModel(firstName: "Jony",
+                                lastName: "Blaze",
+                                password: "945ndfjsjdjd",
+                                email: "jony.blaZE@myemail.com")
 }

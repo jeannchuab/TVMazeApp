@@ -14,8 +14,7 @@ enum KeyChainError: Error, Equatable {
     case dataNotFound
 }
 
-class KeyChainManager {
-    
+class KeyChainManager {    
     static private let service = "TVMazeApp"
     static private let account = "default"
             

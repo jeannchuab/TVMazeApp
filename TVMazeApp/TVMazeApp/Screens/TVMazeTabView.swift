@@ -13,8 +13,6 @@ struct TVMazeTabView: View {
     @StateObject var personViewModel = PersonListViewModel()
     @StateObject var accountViewModel = AccountViewModel()
     
-    @State var isShowingPasswordView = false
-    
     var body: some View {
         
         ZStack {
@@ -40,24 +38,19 @@ struct TVMazeTabView: View {
                     }
             }
             .onAppear {
-                checkPasswordRequired()
+                accountViewModel.retrieveUser()
             }
-            .disabled(isShowingPasswordView)
-            .blur(radius: isShowingPasswordView ? 20 : 0)
+            .disabled(accountViewModel.isShowingPasswordView)
+            .blur(radius: accountViewModel.isShowingPasswordView ? 20 : 0)
             
-            if isShowingPasswordView {
-                PasswordView(isShowing: $isShowingPasswordView)
+            if accountViewModel.isShowingPasswordView {
+                PasswordView()
             }
         }
         .environmentObject(favoritesViewModel)
         .environmentObject(personViewModel)
         .environmentObject(tvShowViewModel)
         .environmentObject(accountViewModel)
-    }
-    
-    func checkPasswordRequired() {
-        accountViewModel.retrieveUser()
-        isShowingPasswordView = accountViewModel.userModel.isPasswordRequiredLaunch        
     }
 }
 

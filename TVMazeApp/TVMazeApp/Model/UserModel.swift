@@ -7,12 +7,13 @@
 
 import Foundation
 
-struct UserModel: Codable {
+struct UserModel: Codable, Equatable {
     var firstName: String = ""
     var lastName: String = ""
     var password: String = ""
     var email: String = ""
     var birthday: Date = Date()
+    
     var isBiometricsEnabled: Bool = false {
         didSet {
             if isBiometricsEnabled {
@@ -20,5 +21,6 @@ struct UserModel: Codable {
             }            
         }
     }
+    
     var isPasswordRequiredLaunch: Bool = false
 }

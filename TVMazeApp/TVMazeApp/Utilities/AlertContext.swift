@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AlertItem: Identifiable {
+struct AlertItem: Identifiable, Equatable {
     var id = UUID()
     let title: Text
     let message: Text
@@ -62,5 +62,9 @@ struct AlertItem: Identifiable {
             title = Text("Profile error")
             message = Text("There was an error saving or retrieving the profile.")            
         }
+    }
+    
+    static func == (lhs: AlertItem, rhs: AlertItem) -> Bool {
+        return lhs.title == rhs.title && lhs.message == rhs.message
     }
 }
